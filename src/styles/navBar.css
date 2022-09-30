@@ -1,0 +1,56 @@
+.navBar {
+    background-color: #C291D9;
+    width: 40vmin;
+    height: 100%;
+}
+
+.navBarContent {
+    padding: 2vmin;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 2em;
+}
+
+.officialHeader {
+    display: flex;
+    align-items: center;
+    column-gap: 1em;
+    padding: 1em;
+    background-color: hsla(0, 100%, 100%, 0.5);
+}
+
+.officialHeader > img {
+    height: 30px;
+    width: 30px;
+}
+
+.list-items {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    list-style: none;
+    font-size: 1.5em;
+}
+
+.list-item {
+    padding: 10px;
+    display: flex;
+}
+
+.project-list {
+    font-size: 1.5em;
+}
+
+.project-items {
+    list-style: inside;
+    padding: 2px;
+}
+
+.project-item {
+    padding: 2px;
+}
+
+.navBarIcon {
+    height: 1em;
+}
