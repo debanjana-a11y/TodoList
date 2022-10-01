@@ -1,5 +1,13 @@
+:root {
+    --light-shade-1: rgb(196, 112, 196);
+    --light-shade-2: #C291D9;
+    --light-shade-3: rgb(170, 83, 170);
+    --light-shade-4: purple;
+    --light-shade-5: #E8CFF3;
+}
+
 .navBar {
-    background-color: #C291D9;
+    background-color: var(--light-shade-2);
     width: 40vmin;
     height: 100%;
 }
@@ -13,11 +21,14 @@
 }
 
 .officialHeader {
+    width: 100%;
     display: flex;
     align-items: center;
+    justify-content: center;
     column-gap: 1em;
     padding: 1em;
     background-color: hsla(0, 100%, 100%, 0.5);
+    border-radius: 20px;
 }
 
 .officialHeader > img {
@@ -38,19 +49,87 @@
     display: flex;
 }
 
+.navBarIcon {
+    height: 1em;
+}
+
 .project-list {
+    width: 100%;
+    height: 40vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.project-list > p {
     font-size: 1.5em;
+    width: 100%;
+    padding: 1rem;
+    font-weight: bold;
+    background-color: var(--light-shade-3);
+    text-align: center;
 }
 
 .project-items {
-    list-style: inside;
-    padding: 2px;
+    width: 100%;
+    height: inherit;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    overflow-y: auto;
+}
+
+::-webkit-scrollbar {
+    background: var(--light-shade-3);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--light-shade-4);
 }
 
 .project-item {
-    padding: 2px;
+    width: 100%;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.navBarIcon {
-    height: 1em;
+.project-item > span {
+    width: 100%;
+    font-size: 1.2em;
+    word-wrap: break-word;
+}
+
+.removeProject {
+    height: 15px;
+    display: none;
+    cursor: pointer;
+}
+
+.project-item:hover {
+    background-color: var(--light-shade-1);
+    cursor: pointer;
+}
+
+.project-item:hover > .removeProject {
+    display: block;
+}
+
+.newProject {
+    position: absolute;
+    bottom: 2em;
+    width: 30vmin;
+}
+
+.addProject {
+    font-size: 1em;
+    height: 3em;
+    width: 100%;
+    cursor: pointer;
+    background-color: var(--light-shade-4);
+    border: none;
+    border-radius: 50px;
+    color: white;
 }

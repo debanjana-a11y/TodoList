@@ -12,6 +12,10 @@ html, body {
     height: 100%;
 }
 
+.blurredContent {
+    filter:blur(1px);
+}
+
 .lightMode {
-    background-color: #E8CFF3;
+    background-color: var(--light-shade-5);
 }

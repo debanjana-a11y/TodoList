@@ -3,6 +3,8 @@ import logo from '../assets/logo.png';
 import homeIcon from '../assets/homeIcon.svg';
 import todayIcon from '../assets/todayIcon.svg';
 import weekIcon from '../assets/thisWeekIcon.svg';
+import removeIcon from '../assets/trash-can.png';
+import openNewProjectForm from './dialogBox';
 
 export default function loadNavBar() {
     const content = document.querySelector('.content');
@@ -14,16 +16,26 @@ export default function loadNavBar() {
         <div class="officialHeader">
             <h1>TodoList</h1>
         </div>
-        <ul class="list-items">
-            <li class="list-item home-item">Home</li>
-            <li class="list-item today-item">Today</li>
-            <li class="list-item week-item">This Week</li>
-        </ul>
-        <div class="project-list">My Projects
-            <ul class="project-items">
-                <li class="project-item">Office</li>
-                <li class="project-item">Study</li>
+        <div class="navFolders">
+            <ul class="list-items">
+                <li class="list-item home-item">Home</li>
+                <li class="list-item today-item">Today</li>
+                <li class="list-item week-item">This Week</li>
             </ul>
+        </div>
+        <div class="project-list">
+            <p>My Projects</p>
+            <ul class="project-items">
+                <li class="project-item">
+                    <span>Web development</span>
+                </li>
+                <li class="project-item">
+                    <span>Work</span>
+                </li>
+            </ul>
+        </div>
+        <div class="newProject">
+            <button class="addProject">Add New Project</button>
         </div>
     </div>`;
 
@@ -56,4 +68,20 @@ export default function loadNavBar() {
     weekImage.alt = "picture of week icon";
     weekImage.classList.add('navBarIcon');
     weeklyItem.prepend(weekImage);
+
+    const projectItems = document.querySelector('.project-items');
+    const projectItem = document.querySelectorAll('.project-item');
+    projectItem.forEach(element => {
+        const removeImage = new Image();
+        removeImage.src = removeIcon;
+        removeImage.classList.add('removeProject');
+        element.appendChild(removeImage);
+        removeImage.addEventListener('click', function(e) {
+            console.log(e.target.parentElement);
+            projectItems.removeChild(e.target.parentElement);
+        });
+    });
+
+    const newProjectBtn = document.querySelector('.addProject');
+    newProjectBtn.addEventListener('click', openNewProjectForm);
 }

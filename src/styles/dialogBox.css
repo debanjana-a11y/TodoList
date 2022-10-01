@@ -1,0 +1,96 @@
+.formContainer {
+    display: flex;
+    justify-content: center;
+}
+
+.newProjectForm {
+    margin: 0;
+    position: absolute;
+    font-size: 1.2em;
+    height: auto;
+    width: 30vmax;
+    background-color: var(--light-shade-5);
+    border: 1px solid var(--light-shade-4);
+    display: flex;
+    flex-direction: column;
+}
+
+.formOpen {
+    z-index: 1;
+    top: 0;
+    transform: translateY(100%);
+    animation: popin 1s;
+    opacity: 1;
+}
+
+.formClose {
+    top: 0;
+    opacity: 0;
+    transform: translateY(0);
+    animation: popout 1s;
+}
+
+@keyframes popin {
+    from {
+        transform: translateY(0);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(100%);
+        opacity: 1;
+    }
+}
+
+@keyframes popout {
+    from {
+        transform: translateY(100%);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 0;
+    }
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--light-shade-3);
+    align-items: center;
+    padding: 1em;
+    font-weight: bold;
+}
+
+.closeImage {
+    height: 20px;
+    cursor: pointer;
+}
+
+main {
+    flex-grow: 1;
+}
+
+main > form {
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+    row-gap: 1em;
+}
+input[type="text"] {
+    height: 2em;
+    font-size: 1em;
+    border: none;
+}
+
+.addBtn {
+    padding: 1em;
+    font-size: large;
+    background-color: var(--light-shade-3);
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.addBtn:hover {
+    background-color: var(--light-shade-1);
+}
