@@ -5,7 +5,9 @@ import todayIcon from '../assets/todayIcon.svg';
 import weekIcon from '../assets/thisWeekIcon.svg';
 import removeIcon from '../assets/trash-can.png';
 import openNewProjectForm from './dialogBox';
+import createTaskPage from './taskPage';
 
+let currentActiveFolder = undefined;
 export default function loadNavBar() {
     const content = document.querySelector('.content');
 
@@ -18,18 +20,18 @@ export default function loadNavBar() {
         </div>
         <div class="navFolders">
             <ul class="list-items">
-                <li class="list-item home-item">Home</li>
-                <li class="list-item today-item">Today</li>
-                <li class="list-item week-item">This Week</li>
+                <li class="navFolder list-item home-item">Home</li>
+                <li class="navFolder list-item today-item">Today</li>
+                <li class="navFolder list-item week-item">This Week</li>
             </ul>
         </div>
         <div class="project-list">
             <p>My Projects</p>
             <ul class="project-items">
-                <li class="project-item">
+                <li class="list-item project-item">
                     <span>Web development</span>
                 </li>
-                <li class="project-item">
+                <li class="list-item project-item">
                     <span>Work</span>
                 </li>
             </ul>
@@ -53,6 +55,8 @@ export default function loadNavBar() {
     homeImage.src = homeIcon;
     homeImage.alt = "picture of home icon";
     homeImage.classList.add('navBarIcon');
+    currentActiveFolder = homeItem;
+    homeItem.classList.add('activeFolder');
     homeItem.prepend(homeImage);
 
     const todayItem = document.querySelector('.today-item');
@@ -77,11 +81,24 @@ export default function loadNavBar() {
         removeImage.classList.add('removeProject');
         element.appendChild(removeImage);
         removeImage.addEventListener('click', function(e) {
-            console.log(e.target.parentElement);
             projectItems.removeChild(e.target.parentElement);
         });
     });
 
     const newProjectBtn = document.querySelector('.addProject');
     newProjectBtn.addEventListener('click', openNewProjectForm);
+
+    const folders = document.querySelectorAll('.list-item');
+    
+    folders.forEach(folder => {
+        folder.addEventListener('click', function(e) {
+            if (currentActiveFolder == folder) return;
+            if (currentActiveFolder != undefined) {
+                currentActiveFolder.classList.remove('activeFolder');
+            }
+            currentActiveFolder = folder;
+            folder.classList.add('activeFolder');
+            createTaskPage();
+        });
+    });
 }

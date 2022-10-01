@@ -44,9 +44,13 @@
     font-size: 1.5em;
 }
 
-.list-item {
+.navFolder {
     padding: 10px;
     display: flex;
+}
+
+.activeFolder {
+    text-decoration: underline;
 }
 
 .navBarIcon {
@@ -108,7 +112,7 @@
     cursor: pointer;
 }
 
-.project-item:hover {
+.list-item:hover {
     background-color: var(--light-shade-1);
     cursor: pointer;
 }

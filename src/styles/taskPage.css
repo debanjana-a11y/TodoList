@@ -1,0 +1,68 @@
+.taskPage {
+    height: 100%;
+    flex-grow: 1;
+    padding: 2em;
+    display: flex;
+    flex-direction: column;
+    row-gap: 1em;
+}
+
+.taskPage > p {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.taskHeader {
+    width: 100%;
+    background-color: var(--light-shade-4);
+}
+
+.taskHeader > button {
+    padding: 0.5em;
+    background-color: inherit;
+    font-size: 1.5em;
+    color: white;
+    border: none;
+    display: flex;
+    column-gap: 1em;
+    align-items: center;
+}
+
+.addTask {
+    height: 1em;
+    background-color: white;
+    border-radius: 50%;
+    border: 1px solid white;
+    cursor: pointer;
+}
+
+.addTask:hover {
+    transform: scale(1.2);
+}
+
+.taskContent {
+    display: flex;
+    flex-direction: column;
+}
+
+.taskContent > h3 {
+    margin-top: 3em;
+    height: 2em;
+    padding: 0.5em;
+    color: white;
+    background-color: var(--light-shade-4);
+}
+
+.todoList {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.todoList > p {
+    font-size: large;
+}
+
+.noWorkImage {
+    width: 40vw;
+}

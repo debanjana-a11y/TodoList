@@ -42,6 +42,7 @@ export default function openNewProjectForm() {
 
         const li = document.createElement('li');
         li.classList.add('project-item');
+        li.classList.add('list-item');
 
         const newProjectName = document.createElement('span')
         newProjectName.innerText = projectName.value;
@@ -52,7 +53,6 @@ export default function openNewProjectForm() {
         removeImage.classList.add('removeProject');
         li.appendChild(removeImage);
         removeImage.addEventListener('click', function(e) {
-            console.log(e.target.parentElement);
             projectItems.removeChild(e.target.parentElement);
         });
         projectItems.appendChild(li);
