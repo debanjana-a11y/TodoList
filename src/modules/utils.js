@@ -1,23 +1,27 @@
-import createTaskPage from "./taskPage";
+import {createTaskPage} from "./taskPage";
 
 let currentActiveFolder = 'undefined';
 
+function setActiveFolder(e) {
+    if (currentActiveFolder == e.target.parentElement) return;
+    if (currentActiveFolder != undefined) {
+        currentActiveFolder.classList.remove('activeFolder');
+    }
+    setCurrentActiveFolder(e.target.parentElement);
+}
+
 function addEvent(li) {
-    li.addEventListener('click', function() {
-        if (currentActiveFolder == li) return;
-        if (currentActiveFolder != undefined) {
-            console.log(currentActiveFolder);
-            currentActiveFolder.classList.remove('activeFolder');
-        }
-        currentActiveFolder = li;
-        li.classList.add('activeFolder');
-        console.log(currentActiveFolder);
-        createTaskPage(currentActiveFolder);
-    });
+    li.addEventListener('click', setActiveFolder);
+}
+
+function deleteEvent(li) {
+    li.removeEventListener('click', setActiveFolder);
 }
 
 function setCurrentActiveFolder(li) {
     currentActiveFolder = li;
+    li.classList.add('activeFolder');
+    createTaskPage(currentActiveFolder);
 }
 
-export {addEvent, setCurrentActiveFolder};
+export {addEvent, deleteEvent, setCurrentActiveFolder};

@@ -27,6 +27,18 @@
     flex-direction: column;
 }
 
+.newTaskForm {
+    margin: 0;
+    position: absolute;
+    font-size: 1.2em;
+    height: auto;
+    width: 30vmax;
+    background-color: var(--light-shade-5);
+    border: 1px solid var(--light-shade-4);
+    display: flex;
+    flex-direction: column;
+}
+
 .formOpen {
     z-index: 1;
     top: 0;

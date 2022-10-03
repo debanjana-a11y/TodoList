@@ -1,11 +1,13 @@
 import '../styles/navBar.css';
+import '../styles/dialogBox.css';
 import logo from '../assets/logo.png';
 import homeIcon from '../assets/homeIcon.svg';
 import todayIcon from '../assets/todayIcon.svg';
 import weekIcon from '../assets/thisWeekIcon.svg';
 import removeIcon from '../assets/trash-can.png';
-import openNewProjectForm from './dialogBox';
-import {addEvent, setCurrentActiveFolder} from './utils';
+import {openNewProjectForm} from './dialogBox';
+import {addEvent, deleteEvent, setCurrentActiveFolder} from './utils';
+import {deleteFromProject} from './taskPage';
 
 export default function loadNavBar() {
     const content = document.querySelector('.content');
@@ -28,7 +30,7 @@ export default function loadNavBar() {
             <p>My Projects</p>
             <ul class="project-items">
                 <li class="list-item project-item">
-                    <span>Web development</span>
+                    <span>Web Development</span>
                 </li>
                 <li class="list-item project-item">
                     <span>Work</span>
@@ -80,7 +82,10 @@ export default function loadNavBar() {
         removeImage.classList.add('removeProject');
         element.appendChild(removeImage);
         removeImage.addEventListener('click', function(e) {
-            projectItems.removeChild(e.target.parentElement);
+            let removingItem = e.target.parentElement;
+            deleteEvent(removingItem);
+            projectItems.removeChild(removingItem);
+            deleteFromProject(removingItem.querySelector('span').innerText);
         });
     });
 

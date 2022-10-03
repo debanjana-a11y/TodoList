@@ -1,5 +1,5 @@
 import '../styles/homePage.css';
-import createTaskPage from './taskPage';
+import {createTaskPage} from './taskPage';
 
 export default function loadPage() {
     const content = document.querySelector('.content');
