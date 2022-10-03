@@ -1,12 +1,14 @@
 import '../styles/dialogBox.css';
 import closeIcon from '../assets/closeIcon.svg';
 import removeIcon from '../assets/trash-can.png';
+import { addEvent } from './utils';
 
 export default function openNewProjectForm() {
     const content = document.querySelector('.content');
     
     const formContainer = document.createElement('div');
     formContainer.classList.add('formContainer');
+    formContainer.classList.add('formContainerOpen');
     const newProjectForm = document.createElement('div');
     newProjectForm.classList.add('newProjectForm');
     newProjectForm.classList.add('formOpen');
@@ -21,6 +23,7 @@ export default function openNewProjectForm() {
     closeImage.classList.add('closeImage');
     closeImage.addEventListener('click', function() {
         newProjectForm.classList.replace('formOpen', 'formClose');
+        formContainer.classList.replace('formContainerOpen', 'formContainerClose');
     });
     header.appendChild(closeImage);
     newProjectForm.appendChild(header);
@@ -55,6 +58,8 @@ export default function openNewProjectForm() {
         removeImage.addEventListener('click', function(e) {
             projectItems.removeChild(e.target.parentElement);
         });
+
+        addEvent(li);
         projectItems.appendChild(li);
         projectName.value = '';
     });

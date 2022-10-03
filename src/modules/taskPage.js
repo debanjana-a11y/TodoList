@@ -2,12 +2,18 @@ import '../styles/taskPage.css';
 import addIcon from '../assets/add.png';
 import completedTaskPic from '../assets/completedTaskPic.png'
 
-export default function createTaskPage() {
+export default function createTaskPage(currentActiveFolder) {
     const content = document.querySelector('.content');
+    /* Delete previous existed Page Display */
+    const prevTaskPage = document.querySelector('.taskPage');
+    console.log(prevTaskPage);
+    if (prevTaskPage != null) {
+        content.removeChild(prevTaskPage);
+    }
+
     const taskPage = document.createElement('div');
     taskPage.classList.add('taskPage');
     taskPage.innerHTML = `
-    <p>Home</p>
     <div class="taskHeader">
         <button>Add New Task</button>
     </div>
@@ -36,4 +42,9 @@ export default function createTaskPage() {
     const noWorkText = document.createElement('p');
     noWorkText.innerText = "No work for today. Enjoy your day.";
     todoList.appendChild(noWorkText);
+
+    const folderName = currentActiveFolder.querySelector('span').innerText;
+    const curretFolder = document.createElement('p');
+    curretFolder.innerText = folderName;
+    taskPage.prepend(curretFolder);
 }

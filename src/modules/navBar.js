@@ -5,9 +5,8 @@ import todayIcon from '../assets/todayIcon.svg';
 import weekIcon from '../assets/thisWeekIcon.svg';
 import removeIcon from '../assets/trash-can.png';
 import openNewProjectForm from './dialogBox';
-import createTaskPage from './taskPage';
+import {addEvent, setCurrentActiveFolder} from './utils';
 
-let currentActiveFolder = undefined;
 export default function loadNavBar() {
     const content = document.querySelector('.content');
 
@@ -20,9 +19,9 @@ export default function loadNavBar() {
         </div>
         <div class="navFolders">
             <ul class="list-items">
-                <li class="navFolder list-item home-item">Home</li>
-                <li class="navFolder list-item today-item">Today</li>
-                <li class="navFolder list-item week-item">This Week</li>
+                <li class="navFolder list-item home-item"><span>Home</span></li>
+                <li class="navFolder list-item today-item"><span>Today</span></li>
+                <li class="navFolder list-item week-item"><span>This Week</span></li>
             </ul>
         </div>
         <div class="project-list">
@@ -55,7 +54,7 @@ export default function loadNavBar() {
     homeImage.src = homeIcon;
     homeImage.alt = "picture of home icon";
     homeImage.classList.add('navBarIcon');
-    currentActiveFolder = homeItem;
+    setCurrentActiveFolder(homeItem);
     homeItem.classList.add('activeFolder');
     homeItem.prepend(homeImage);
 
@@ -91,14 +90,6 @@ export default function loadNavBar() {
     const folders = document.querySelectorAll('.list-item');
     
     folders.forEach(folder => {
-        folder.addEventListener('click', function(e) {
-            if (currentActiveFolder == folder) return;
-            if (currentActiveFolder != undefined) {
-                currentActiveFolder.classList.remove('activeFolder');
-            }
-            currentActiveFolder = folder;
-            folder.classList.add('activeFolder');
-            createTaskPage();
-        });
+        addEvent(folder);
     });
 }
