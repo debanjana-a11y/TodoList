@@ -232,7 +232,7 @@ function addProject(e) {
     addToProjectList(projectName.value);
     /* Add to DOM */
     addProjectToList(projectName.value);
-    closeForm(null, true, false);
+    // closeForm(null, true, false);
 }
 
 function loadProjects() {

@@ -32,7 +32,7 @@
     position: absolute;
     font-size: 1.2em;
     height: auto;
-    width: 30vmax;
+    width: 70vmin;
     background-color: var(--light-shade-5);
     border: 1px solid var(--light-shade-4);
     display: flex;
@@ -42,7 +42,7 @@
 .formOpen {
     z-index: 1;
     top: 0;
-    transform: translateY(20%);
+    transform: translateY(5vmin);
     animation: popin 1s;
     opacity: 1;
 }
@@ -64,14 +64,14 @@
         opacity: 0;
     }
     to {
-        transform: translateY(20%);
+        transform:  translateY(5vmin);
         opacity: 1;
     }
 }
 
 @keyframes popout {
     from {
-        transform: translateY(20%);
+        transform:  translateY(5vmin);
         opacity: 1;
     }
     to {
