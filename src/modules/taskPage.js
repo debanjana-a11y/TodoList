@@ -58,8 +58,18 @@ const sampleProjects = [
 class Project {
     constructor(name, todos = [], completed= []) {
         this.name = name;
-        this.todos = todos;
-        this.completed = completed;
+        this.todos = [];
+        if (todos.length > 0) {
+            todos.forEach(todo => {
+                this.todos.push(new Task(todo.title, todo.description, todo.due, todo.priority));
+            });
+        }
+        this.completed = [];
+        if (completed.length > 0) {
+            completed.forEach(todo => {
+                this.completed.push(new Task(todo.title, todo.description, todo.due, todo.priority));
+            });
+        }
     }
 
     getTask(taskName) {
@@ -81,29 +91,21 @@ class Project {
         });
         return retTask;
     }
-
-
-    test() {
-        console.log("hello");
-    }
 }
 
 class Task {
-    constructor(name, description, due = none, priority='low') {
+    constructor(name, description, due = null, priority='low') {
         this.title = name;
         if (description == '') {
             description = 'No description is available';
         }
         this.description = description;
-        if (due == '') {
-            due = none;
+        if (due == '' || due == null) {
+            this.due = new Date().toJSON().slice(0, 10);
+        } else {
+            this.due = due;
         }
-        this.due = due;
         this.priority = priority;
-    }
-
-    getInfo() {
-        return this.description;
     }
 }
 
@@ -351,7 +353,7 @@ function showInfo(e) {
         return;
     }
 
-    openDescriptionBox(task.description);
+    openDescriptionBox(task.title, task.description, task.due, task.priority);
 }
 
 function updateTask() {

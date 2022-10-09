@@ -105,7 +105,7 @@ function openNewTaskForm(e) {
     form.addEventListener('submit', addTask);
 }
 
-function openDescriptionBox(description) {
+function openDescriptionBox(title, description, due, priority) {
     const content = document.querySelector('.content');
     const formContainer = document.createElement('div');
     formContainer.classList.add('formContainer');
@@ -130,7 +130,44 @@ function openDescriptionBox(description) {
     detailsForm.appendChild(header);
 
     const main = document.createElement('main');
-    main.innerText = description;
+
+    const descDiv = document.createElement('div');
+    const titleDisplay = document.createElement('h3');
+    titleDisplay.innerText = 'Title';
+    descDiv.appendChild(titleDisplay);
+    const titleValue = document.createElement('p');
+    titleValue.innerText = title;
+    descDiv.appendChild(titleValue);
+    const lineBreak1 = document.createElement('hr');
+    descDiv.appendChild(lineBreak1);
+
+    const descDisplay = document.createElement('h3');
+    descDisplay.innerText = 'Description';
+    descDiv.appendChild(descDisplay);
+    const descValue = document.createElement('p');
+    descValue.innerText = description;
+    descDiv.appendChild(descValue);
+    const lineBreak2 = document.createElement('hr');
+    descDiv.appendChild(lineBreak2);
+
+    const dueDisplay = document.createElement('h3');
+    dueDisplay.innerText = 'Due Date';
+    descDiv.appendChild(dueDisplay);
+    const dueValue = document.createElement('p');
+    dueValue.innerText = due;
+    descDiv.appendChild(dueValue);
+    const lineBreak3 = document.createElement('hr');
+    descDiv.appendChild(lineBreak3);
+
+    const priorityDisplay = document.createElement('h3');
+    priorityDisplay.innerText = 'Priority';
+    descDiv.appendChild(priorityDisplay);
+    const priorityValue = document.createElement('p');
+    priorityValue.innerText = priority;
+    descDiv.appendChild(priorityValue);
+
+    descDiv.classList.add('descriptionDiv');
+    main.appendChild(descDiv);
     main.classList.add('descriptionDetails');
     detailsForm.appendChild(main);
 

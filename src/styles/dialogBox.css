@@ -123,3 +123,9 @@ input, select{
 .addBtn:hover {
     background-color: var(--light-shade-1);
 }
+
+.descriptionDiv {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1em;
+}
