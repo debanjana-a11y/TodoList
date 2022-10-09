@@ -81,8 +81,54 @@
     padding: 0.5em;
     width: 100%;
     font-size: 1.2em;
+    display: flex;
+    /* justify-content: space-between; */
+}
+
+.todoTask:hover, .doneTask:hover {
+    background-color: var(--light-shade-1);
+    cursor: pointer;
+}
+
+.todoDivMain {
+    width: 50%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    column-gap: 1em;
+}
+
+input[type="radio"] {
+    transform: scale(2);
+    margin-left: 1em;
+}
+
+input[type="radio"]:checked {
+    accent-color: var(--light-shade-4);
 }
 
 .doneTask {
     text-decoration: line-through;
+}
+
+.todoDivSettings {
+    display: flex;
+    width: 50%;
+    justify-content: space-evenly;
+}
+
+.todoDivMain > button, .todoDivSettings > button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.todoDivMain > button:hover, .todoDivSettings > button:hover {
+    transform: scale(1.2);
+}
+
+.infoIconImg, .editTaskImage, .deleteTaskImage {
+    height: 30px;
+    background-color: inherit;
+    border-radius: 50%;
 }

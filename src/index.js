@@ -1,5 +1,5 @@
 import loadNavBar from './modules/navBar';
-import loadPage from './modules/homePage';
+import {loadProjects} from './modules/taskPage';
 
 loadNavBar();
-loadPage();
+loadProjects();

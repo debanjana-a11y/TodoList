@@ -6,6 +6,29 @@
     --light-shade-5: #E8CFF3;
 }
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+}
+
+.content {
+    height: 100%;
+    display: flex;
+}
+
+.blurredContent {
+    filter:blur(1px);
+}
+
+.lightMode {
+    background-color: var(--light-shade-5);
+}
+
 .navBar {
     background-color: var(--light-shade-2);
     width: 40vmin;

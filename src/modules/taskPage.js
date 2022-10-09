@@ -1,59 +1,233 @@
 import '../styles/taskPage.css';
 import addIcon from '../assets/add.png';
-import completedTaskPic from '../assets/completedTaskPic.png';
-import { openNewTaskForm } from './dialogBox';
-import { setCurrentActiveFolder } from './utils';
+import infoIcon from '../assets/infoIcon.jpg';
+import editIcon from '../assets/editBtn.jpg';
+import deleteIcon from '../assets/deleteBtn.jpg';
+import removeIcon from '../assets/trash-can.png';
+import completedTaskPic from '../assets/completedTask.jpg';
+import { openNewProjectForm, openNewTaskForm, openDescriptionBox } from './dialogBox';
 
-let folders = [
+let projectList = [];
+
+const sampleProjects = [
     {
-        folder: 'Home',
-        todos: ['Take Medicine', 'Pay house rent'],
-        completed: ['Wash Dishes', 'Write email to boss']
+        name: 'Web Development',
+        todos: [
+            {
+                title: 'Work on ToDo List',
+                description: `Add a 'AddTask' button on Odin's TODO List Project`,
+                due: null,
+                priority: 'high'
+            },
+            {
+                title: 'Start studying OOP',
+                description: `Start reading OOP Chapter from Odin Project`,
+                due: null,
+                priority: 'medium'
+            },
+            {
+                title: 'Read others websites',
+                description: `Find and read 2 of others websites from Odin's discord`,
+                due: null,
+                priority: 'low'
+            }
+        ],
+        completed: [
+            {
+                title: `Add a 'AddProject' button on ToDo List`,
+                description: `Add a 'AddProject' button on Odin's TODO List Project`,
+                due: null,
+                priority: 'high'
+            }
+        ]
     },
     {
-        folder: 'Today',
+        name: 'Work',
         todos: [],
-        completed: []
-    },
-    {
-        folder: 'This Week',
-        todos: [],
-        completed: []
-    },
-    {
-        folder: 'Web Development',
-        todos: [],
-        completed: []
-    },
-    {
-        folder: 'Work',
-        todos: [],
-        completed: []
+        completed: [
+            {
+                title: 'Send email to Sonia',
+                description: `Write Sonia about yesterday's regression test results`,
+                due: null,
+                priority: 'high'
+            }
+        ]
     }
 ];
 
 class Project {
-    constructor(name) {
-        this.folder = name;
-        this.todos = [];
-        this.completed = [];
+    constructor(name, todos = [], completed= []) {
+        this.name = name;
+        this.todos = todos;
+        this.completed = completed;
+    }
+
+    getTask(taskName) {
+        let retTask = undefined;
+        this.todos.forEach(task => {
+            if (task.title == taskName) {
+                retTask = task;
+                return;
+            }
+        });
+
+        if (retTask != undefined) return retTask;
+
+        this.completed.forEach(task => {
+            if (task.title == taskName) {
+                retTask = task;
+                return;
+            }
+        });
+        return retTask;
+    }
+
+
+    test() {
+        console.log("hello");
     }
 }
 
-function addToProject(newProject) {
-    folders.push(new Project(newProject));
+class Task {
+    constructor(name) {
+        this.title = name;
+        this.description = 'No description is available';
+        this.due = null;
+        this.priority = 'low';
+    }
+
+    getInfo() {
+        return this.description;
+    }
 }
 
-function deleteFromProject(newProject) {
-    for(let i = 0; i < folders.length; i++) {
-        if (folders[i].folder == newProject) {
-            folders.splice(i, 1);
+function getProject(projectName) {
+    let retProject = undefined;
+    projectList.forEach(project => {
+        if (project.name == projectName) {
+            retProject = project;
+            return retProject;
+        }
+    });
+
+    return retProject;
+}
+
+let currentActiveFolder = undefined;
+
+function setFirstAsCurrentFolder() {
+    const listItems = document.querySelectorAll('.list-item');
+    if (listItems.length > 0) {
+        const defaultTaskPage = document.querySelectorAll('.list-item')[0];
+        setCurrentActiveFolder(defaultTaskPage);
+    }
+}
+
+function setCurrentActiveFolder(projectListItem) {
+    if (currentActiveFolder == projectListItem) return;
+    if (currentActiveFolder != undefined) {
+        currentActiveFolder.classList.remove('activeFolder');
+    }
+    currentActiveFolder = projectListItem;
+    projectListItem.classList.add('activeFolder');
+    createTaskPage(currentActiveFolder);
+}
+
+function changeActiveFolder(e) { 
+    setCurrentActiveFolder(e.target.parentElement);
+}
+
+function addToProjectList(newProjectName) {
+    projectList.push(new Project(newProjectName));
+}
+
+function deleteFromProjectList(newProject) {
+    for(let i = 0; i < projectList.length; i++) {
+        if (projectList[i].name == newProject) {
+            projectList.splice(i, 1);
         } 
     }
-    const defaultHomeNav = document.querySelectorAll('.list-item')[0];
-    setCurrentActiveFolder(defaultHomeNav);
 }
 
+function addEvent(newListItem) {
+    newListItem.addEventListener('click', changeActiveFolder);
+}
+
+function deleteEvent(project) {
+    project.removeEventListener('click', changeActiveFolder);
+}
+
+function removeProject(e) {
+    const projectItems = document.querySelector('.project-items');
+    let removingItem = e.target.parentElement;
+    if (currentActiveFolder == removingItem) {
+        setFirstAsCurrentFolder();
+    }
+    deleteEvent(removingItem);
+    projectItems.removeChild(removingItem);
+    deleteFromProjectList(removingItem.querySelector('span').innerText);
+}
+
+function displayProject(name) {
+    const newListItem = document.createElement('li');
+    newListItem.classList.add('project-item');
+    newListItem.classList.add('list-item');
+
+    const newProjectName = document.createElement('span')
+    newProjectName.innerText = name;
+    newListItem.appendChild(newProjectName);
+
+    const removeImage = new Image();
+    removeImage.src = removeIcon;
+    removeImage.classList.add('removeProject');
+    removeImage.addEventListener('click', removeProject);
+
+    newListItem.appendChild(removeImage);  
+    addEvent(newListItem);
+
+    /* Set New Project as Current Project */
+    setCurrentActiveFolder(newListItem);
+
+    return newListItem;
+}
+
+function addProjectToList(projectName) {
+    const projectItems = document.querySelector('.project-items');
+    const newListItem = displayProject(projectName);
+    projectItems.appendChild(newListItem);
+}
+
+function addProject() {
+    const projectName = document.querySelector('#projectName');
+    addProjectToList(projectName.value);
+    /* Add to storage */
+    addToProjectList(projectName.value);
+    projectName.value = '';
+}
+
+function loadProjects() {
+    if (projectList.length == 0) {
+        sampleProjects.forEach(sample => {
+            const newProject = new Project(sample.name, sample.todos, sample.completed);
+            projectList.push(newProject);
+        });
+    }
+
+    projectList.forEach(project => {
+        addProjectToList(project.name);
+    });
+
+    const newProjectBtn = document.querySelector('.addProject');
+    newProjectBtn.addEventListener('click', openNewProjectForm);
+
+    const folders = document.querySelectorAll('.list-item');
+    
+    folders.forEach(folder => {
+        addEvent(folder);
+    });
+}
+
+/****** Task Functions *******/
 function createTaskPage(currentActiveFolder) {
     const content = document.querySelector('.content');
     /* Delete previous existed Page Display */
@@ -84,15 +258,15 @@ function createTaskPage(currentActiveFolder) {
     addTask.addEventListener('click', openNewTaskForm);
     addBtn.prepend(addTask);
 
-    const folderName = currentActiveFolder.querySelector('span').innerText;
+    const projectName = currentActiveFolder.querySelector('span').innerText;
     const curretFolder = document.createElement('p');
-    curretFolder.innerText = folderName;
+    curretFolder.innerText = projectName;
     taskPage.prepend(curretFolder);
-    displayTaskPage(folderName);
+    displayTaskPage(projectName);
 }
 
 function markTaskAsTodo(folder, taskName) {
-    folders.forEach(element => {
+    projectList.forEach(element => {
         if (element.folder == folder) {
             element.todos.push(taskName);
         }
@@ -100,23 +274,160 @@ function markTaskAsTodo(folder, taskName) {
 }
 
 function markTaskAsCompleted(folder, taskName) {
-    folders.forEach(element => {
+    projectList.forEach(element => {
         if (element.folder == folder) {
             element.completed.push(taskName);
         }
     });
 }
 
-function displayTaskPage(folderName) {
-    folders.forEach(folder => {
-        if (folder.folder == folderName) {
+function addTaskToProject(projectName, taskName, isTodoItem=true) {
+    for(let i = 0; i < projectList.length; i++) {
+        if (projectList[i].name == projectName) {
+            if (isTodoItem == true) {
+                projectList[i].todos.push(new Task(taskName));
+            } else {
+                projectList[i].completed.push(new Task(taskName));
+            }
+        } 
+    }
+}
+
+function deleteTaskFromProject(projectName, task) {
+    projectList.forEach(project => {
+        if (project.name == projectName) {
+            for(let i = 0; i < project.todos.length; i++) {
+                if (project.todos[i].title == task) {
+                    project.todos[i].splice(i, 1);
+                }
+            }
+        }
+    });
+}
+
+function addTask(e) {
+    const taskName = document.querySelector('#taskName');
+    
+    /* Add to storage */
+    const projectName = document.querySelector('.taskPage').firstElementChild.innerText;
+    addTaskToProject(projectName, taskName.value);
+
+    taskName.value = '';
+    displayTaskPage(projectName);
+}
+
+function deleteTODO(todoList, todoDiv) {
+    todoList.removeChild(todoDiv);
+    /* Delete From storage */
+}
+
+function changeStatus(e) {
+    const markedDoneTask = e.target.parentElement.parentElement;
+    markTaskAsCompleted(document.querySelector('.taskPage').firstElementChild.innerText, todo);
+    todoList.removeChild(markedDoneTask);
+    doneList.appendChild(markedDoneTask);
+    markedDoneTask.classList.remove('todoTask');
+    markedDoneTask.classList.add('doneTask');
+}
+
+function showInfo(e) {
+    const projectName = document.querySelector('.taskPage').firstElementChild.innerText;
+    const taskName = e.currentTarget.parentElement.childNodes[1].innerText;
+
+    const project = getProject(projectName);
+    const task = project.getTask(taskName);
+
+    if (task == undefined) {
+        return;
+    }
+
+    openDescriptionBox(task.description);
+}
+
+function updateTask() {
+
+}
+
+function editTask(e) {
+    /* Create Form */
+
+    /* Close will close form*/
+    
+    /* Save will updateTask */
+}
+
+function deleteTask(e) {
+    console.log(e.target.parentElement.parentElement);
+}
+
+function displayTODO(todoList, todo) {
+    const todoDiv = document.createElement('div');
+
+    const todoDivMain = document.createElement('div');
+    const radioBtn = document.createElement("input");
+    radioBtn.setAttribute("type", "radio");
+    radioBtn.addEventListener('change', changeStatus);
+    todoDivMain.appendChild(radioBtn);
+    const todoTitle = document.createElement('span');
+    todoTitle.innerText = todo.title;
+    todoDivMain.appendChild(todoTitle);
+    const details = document.createElement('button');
+    const infoIconImg = new Image();
+    infoIconImg.src = infoIcon;
+    infoIconImg.alt = "Image of Info Icon";
+    infoIconImg.classList.add('infoIconImg');
+    details.addEventListener('click', showInfo);
+    details.appendChild(infoIconImg);
+    todoDivMain.appendChild(details);
+    todoDivMain.classList.add('todoDivMain');
+    todoDiv.appendChild(todoDivMain);
+
+    const todoDivSettings = document.createElement('div');
+    const remainingTime = document.createElement('span');
+    todoDivSettings.appendChild(remainingTime);
+    const editBtn = document.createElement('button');
+    const editTaskImage = new Image();
+    editTaskImage.src = editIcon;
+    editTaskImage.alt = "Edit for Task";
+    editTaskImage.classList.add('editTaskImage');
+    editBtn.appendChild(editTaskImage);
+    editBtn.addEventListener('click', editTask);
+
+    todoDivSettings.appendChild(editBtn);
+    const deleteBtn = document.createElement('button');
+    const deleteTaskImage = new Image();
+    deleteTaskImage.src = deleteIcon;
+    deleteTaskImage.alt = "Deelet the Task";
+    deleteTaskImage.classList.add('deleteTaskImage');
+    deleteBtn.appendChild(deleteTaskImage);
+    deleteBtn.addEventListener('click', deleteTask);
+
+    todoDivSettings.appendChild(deleteBtn);
+    todoDivSettings.classList.add('todoDivSettings');
+
+    todoDiv.appendChild(todoDivSettings);
+    todoDiv.classList.add('todoTask');
+    todoList.appendChild(todoDiv);
+}
+
+function displayCompleted(doneList, completedTask) {
+    const completedDiv = document.createElement('div');
+    completedDiv.innerText = completedTask.title;
+    completedDiv.classList.add('doneTask');
+    doneList.appendChild(completedDiv);
+}
+
+function displayTaskPage(projectName) {
+    projectList.forEach(project => {
+        if (project.name == projectName) {
             const todoList = document.querySelector('.todoList');
+            const doneList = document.querySelector('.doneList');
 
             // clear prev elements
             todoList.innerHTML = '';
 
             // todo list
-            if (folder.todos.length == 0) {
+            if (project.todos.length == 0) {
                 // display no work picture
                 const noWorkDiv = document.createElement('div');
                 noWorkDiv.classList.add('noWorkDiv');
@@ -129,24 +440,20 @@ function displayTaskPage(folderName) {
                 noWorkDiv.appendChild(noWorkText);
                 todoList.appendChild(noWorkDiv);
             } else {
-                folder.todos.forEach(todo => {
-                    const todoDiv = document.createElement('div');
-                    todoDiv.innerText = todo;
-                    todoDiv.classList.add('todoTask');
-                    todoList.appendChild(todoDiv);
+                // clear prev elements, in case of no work image is here
+                todoList.innerHTML = '';
+
+                project.todos.forEach(todo => {
+                    displayTODO(todoList, todo);
                 });
             }
             // completd list
-            const doneList = document.querySelector('.doneList');
             doneList.innerHTML = '';
-            folder.completed.forEach(completedTask => {
-                const completedDiv = document.createElement('div');
-                completedDiv.innerText = completedTask;
-                completedDiv.classList.add('doneTask');
-                doneList.appendChild(completedDiv);
+            project.completed.forEach(completedTask => {
+                displayCompleted(doneList, completedTask);
             });
         }
     });
 }
 
-export {addToProject, deleteFromProject, createTaskPage, markTaskAsTodo, markTaskAsCompleted, displayTaskPage};
+export {loadProjects, addProject, addTask};

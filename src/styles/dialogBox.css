@@ -27,7 +27,7 @@
     flex-direction: column;
 }
 
-.newTaskForm {
+.newForm {
     margin: 0;
     position: absolute;
     font-size: 1.2em;
@@ -52,6 +52,10 @@
     opacity: 0;
     transform: translateY(0);
     animation: popout 1s;
+}
+
+.descriptionDetails {
+    margin: 1em;
 }
 
 @keyframes popin {
