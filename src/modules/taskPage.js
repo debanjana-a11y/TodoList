@@ -89,11 +89,17 @@ class Project {
 }
 
 class Task {
-    constructor(name) {
+    constructor(name, description, due = none, priority='low') {
         this.title = name;
-        this.description = 'No description is available';
-        this.due = null;
-        this.priority = 'low';
+        if (description == '') {
+            description = 'No description is available';
+        }
+        this.description = description;
+        if (due == '') {
+            due = none;
+        }
+        this.due = due;
+        this.priority = priority;
     }
 
     getInfo() {
@@ -281,13 +287,13 @@ function markTaskAsCompleted(folder, taskName) {
     });
 }
 
-function addTaskToProject(projectName, taskName, isTodoItem=true) {
+function addTaskToProject(projectName, taskName, taskDescription, taskDue, taskPriority, isTodoItem=true) {
     for(let i = 0; i < projectList.length; i++) {
         if (projectList[i].name == projectName) {
             if (isTodoItem == true) {
-                projectList[i].todos.push(new Task(taskName));
+                projectList[i].todos.push(new Task(taskName, taskDescription, taskDue, taskPriority));
             } else {
-                projectList[i].completed.push(new Task(taskName));
+                projectList[i].completed.push(new Task(taskName, taskDescription, taskDue, taskPriority));
             }
         } 
     }
@@ -306,11 +312,15 @@ function deleteTaskFromProject(projectName, task) {
 }
 
 function addTask(e) {
+    e.preventDefault();
     const taskName = document.querySelector('#taskName');
+    const taskDescription = document.querySelector('#taskDescription');
+    const taskDueDate = document.querySelector('#dateEntered');
+    const taskPriority = document.querySelector('#priority');
     
     /* Add to storage */
     const projectName = document.querySelector('.taskPage').firstElementChild.innerText;
-    addTaskToProject(projectName, taskName.value);
+    addTaskToProject(projectName, taskName.value, taskDescription.value, taskDueDate.value, taskPriority.value);
 
     taskName.value = '';
     displayTaskPage(projectName);
@@ -407,6 +417,16 @@ function displayTODO(todoList, todo) {
 
     todoDiv.appendChild(todoDivSettings);
     todoDiv.classList.add('todoTask');
+    switch(todo.priority) {
+        case 'high':
+            todoDiv.classList.add('highTodoTask');
+            break;
+        case 'medium':
+            todoDiv.classList.add('mediumTodoTask');
+            break;
+        default:
+            todoDiv.classList.add('lowTodoTask');
+    }
     todoList.appendChild(todoDiv);
 }
 

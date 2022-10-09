@@ -42,7 +42,7 @@
 .formOpen {
     z-index: 1;
     top: 0;
-    transform: translateY(100%);
+    transform: translateY(20%);
     animation: popin 1s;
     opacity: 1;
 }
@@ -64,14 +64,14 @@
         opacity: 0;
     }
     to {
-        transform: translateY(100%);
+        transform: translateY(20%);
         opacity: 1;
     }
 }
 
 @keyframes popout {
     from {
-        transform: translateY(100%);
+        transform: translateY(20%);
         opacity: 1;
     }
     to {
@@ -104,10 +104,11 @@ main > form {
     padding: 1em;
     row-gap: 1em;
 }
-input[type="text"] {
+input, select{
     height: 2em;
     font-size: 1em;
     border: none;
+    padding: 5px;
 }
 
 .addBtn {

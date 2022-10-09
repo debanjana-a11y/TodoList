@@ -2,8 +2,6 @@ import '../styles/dialogBox.css';
 import closeIcon from '../assets/closeIcon.svg';
 import {addProject, addTask} from './taskPage';
 
-// import { markTaskAsTodo, displayTaskPage } from './taskPage';
-
 function deleteForm() {
     const formContainer = document.querySelector('.formContainer');
     const content = document.querySelector('.content');
@@ -38,20 +36,18 @@ function openNewProjectForm() {
 
     const main = document.createElement('main');
     main.innerHTML = `
-        <form>
+        <form class="Form">
         <label for="projectName">Project Name</label>
-        <input type="text" id="projectName" name="projectName" placeholder="Enter Project Name">
+        <input type="text" required id="projectName" name="projectName" placeholder="Enter Project Name">
+        <button type="submit" class="addBtn">Add Project</button>
         </form>`
     newProjectForm.appendChild(main);
 
-    const addBtn = document.createElement('button');
-    addBtn.innerText = 'Add Project';
-    addBtn.classList.add('addBtn');
-    addBtn.addEventListener('click', addProject);
-    newProjectForm.appendChild(addBtn);
-
     formContainer.appendChild(newProjectForm);
     content.appendChild(formContainer);
+
+    const form = document.querySelector('.Form');
+    form.addEventListener('submit', addProject);
 }
 
 function openNewTaskForm(e) {
@@ -81,30 +77,36 @@ function openNewTaskForm(e) {
     header.appendChild(closeImage);
     newTaskForm.appendChild(header);
 
+    const defaultDue = new Date().toJSON().slice(0, 10);
+
     const main = document.createElement('main');
     main.innerHTML = `
-        <form>
-        <label for="taskName">Task Name</label>
-        <input type="text" id="taskName" name="taskName" placeholder="Enter Task Name">
+        <form class="Form">
+        <label for="taskName">Title <sup>*</sup></label>
+        <input type="text" required id="taskName" name="taskName" placeholder="Enter Task Name">
+        <label for="taskDescription">Description (Optional)</label>
+        <input type="text" id="taskDescription" name="taskDescription" placeholder="Enter Description">
+        <label for="dateEntered">Due Date (Optional) </label>
+        <input type="date" id="dateEntered" name="dateEntered" value="${defaultDue}"/>
+        <label for="priority">Priority (Optional) </label>
+        <select id="priority">
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+        </select>
+        <button type="submit" class="addBtn">Add Task</button>
         </form>`
     newTaskForm.appendChild(main);
 
-    const addBtn = document.createElement('button');
-    addBtn.innerText = 'Add Task';
-    addBtn.classList.add('addBtn');
-    addBtn.addEventListener('click', addTask);
-    newTaskForm.appendChild(addBtn);
-
     formContainer.appendChild(newTaskForm);
     content.appendChild(formContainer);
+
+    const form = document.querySelector('.Form');
+    form.addEventListener('submit', addTask);
 }
 
 function openDescriptionBox(description) {
     const content = document.querySelector('.content');
-    // const formContainer = document.createElement('div');
-    // formContainer.classList.add('formOpen');
-    // formContainer.innerText = description;
-
     const formContainer = document.createElement('div');
     formContainer.classList.add('formContainer');
     formContainer.classList.add('formContainerOpen');

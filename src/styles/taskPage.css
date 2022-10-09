@@ -85,6 +85,18 @@
     /* justify-content: space-between; */
 }
 
+.lowTodoTask {
+    border-left: 0.3em solid var(--light-shade-4);
+}
+
+.mediumTodoTask {
+    border-left: 0.3em solid yellow;
+}
+
+.highTodoTask {
+    border-left: 0.3em solid red;
+}
+
 .todoTask:hover, .doneTask:hover {
     background-color: var(--light-shade-1);
     cursor: pointer;
