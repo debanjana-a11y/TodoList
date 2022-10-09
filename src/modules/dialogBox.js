@@ -1,6 +1,6 @@
 import '../styles/dialogBox.css';
 import closeIcon from '../assets/closeIcon.svg';
-import {addProject, addTask} from './taskPage';
+import {addProject, addTask, updateTask} from './taskPage';
 
 function deleteForm() {
     const formContainer = document.querySelector('.formContainer');
@@ -50,9 +50,7 @@ function openNewProjectForm() {
     form.addEventListener('submit', addProject);
 }
 
-function openNewTaskForm(e) {
-    const projectName = e.srcElement.parentElement.parentElement.
-                        parentNode.childNodes[0].innerText;
+function createNewTaskForm(projectName) {
     const content = document.querySelector('.content');
     const formContainer = document.createElement('div');
     formContainer.classList.add('formContainer');
@@ -69,11 +67,7 @@ function openNewTaskForm(e) {
     const closeImage = new Image();
     closeImage.src = closeIcon;
     closeImage.classList.add('closeImage');
-    closeImage.addEventListener('click', function() {
-        newTaskForm.classList.replace('formOpen', 'formClose');
-        formContainer.classList.replace('formContainerOpen', 'formContainerClose');
-        setTimeout(deleteForm, 1000);
-    });
+    closeImage.addEventListener('click', closeForm);
     header.appendChild(closeImage);
     newTaskForm.appendChild(header);
 
@@ -100,7 +94,12 @@ function openNewTaskForm(e) {
 
     formContainer.appendChild(newTaskForm);
     content.appendChild(formContainer);
+}
 
+function openNewTaskForm(e) {
+    const projectName = e.srcElement.parentElement.parentElement.
+                        parentNode.childNodes[0].innerText;
+    createNewTaskForm(projectName);
     const form = document.querySelector('.Form');
     form.addEventListener('submit', addTask);
 }
@@ -175,5 +174,36 @@ function openDescriptionBox(title, description, due, priority) {
     content.appendChild(formContainer);
 }
 
-export {openNewProjectForm, openNewTaskForm, openDescriptionBox};
+function openEditTaskForm(projectName, title, description, due, priority) {
+    createNewTaskForm(projectName);
+    
+    /* Add all existing informations */
+    const taskName = document.querySelector('#taskName');
+    taskName.value = title;
+    const taskDescription = document.querySelector('#taskDescription');
+    taskDescription.value = description;
+    const taskDueDate = document.querySelector('#dateEntered');
+    taskDueDate.value = due;
+    const taskPriority = document.querySelector('#priority');
+    taskPriority.value = priority;
+
+    /* Rename Button name */
+    const editBtn = document.querySelector('.addBtn');
+    editBtn.innerText = "Save Task";
+
+    const form = document.querySelector('.Form');
+    form.addEventListener('submit', (e) => updateTask(e, title));
+}
+
+function closeForm() {
+    const formContainer = document.querySelector('.formContainer');
+    const newTaskForm = document.querySelector('.newForm');
+    newTaskForm.classList.replace('formOpen', 'formClose');
+    formContainer.classList.replace('formContainerOpen', 'formContainerClose');
+    setTimeout(deleteForm, 1000);
+}
+
+export {openNewProjectForm, openNewTaskForm,
+        openDescriptionBox, openEditTaskForm,
+        closeForm};
 

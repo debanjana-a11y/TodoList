@@ -5,7 +5,9 @@ import editIcon from '../assets/editBtn.jpg';
 import deleteIcon from '../assets/deleteBtn.jpg';
 import removeIcon from '../assets/trash-can.png';
 import completedTaskPic from '../assets/completedTask.jpg';
-import { openNewProjectForm, openNewTaskForm, openDescriptionBox } from './dialogBox';
+import { openNewProjectForm, openNewTaskForm,
+         openDescriptionBox, openEditTaskForm,
+         closeForm } from './dialogBox';
 
 let projectList = [];
 
@@ -301,6 +303,21 @@ function addTaskToProject(projectName, taskName, taskDescription, taskDue, taskP
     }
 }
 
+function updateTaskInProject(projectName, oldTitle, taskName, taskDescription, taskDue, taskPriority, isTodoItem=true) {
+    projectList.forEach(project => {
+        if (project.name == projectName) {
+            for(let i = 0; i < project.todos.length; i++) {
+                if (project.todos[i].title == oldTitle) {
+                    project.todos[i].title = taskName;
+                    project.todos[i].description = taskDescription;
+                    project.todos[i].due = taskDue;
+                    project.todos[i].priority = taskPriority;
+                }
+            }
+        }
+    });
+}
+
 function deleteTaskFromProject(projectName, task) {
     projectList.forEach(project => {
         if (project.name == projectName) {
@@ -356,16 +373,33 @@ function showInfo(e) {
     openDescriptionBox(task.title, task.description, task.due, task.priority);
 }
 
-function updateTask() {
-
+function updateTask(e, title) {
+    e.preventDefault();
+    const taskName = document.querySelector('#taskName');
+    const taskDescription = document.querySelector('#taskDescription');
+    const taskDueDate = document.querySelector('#dateEntered');
+    const taskPriority = document.querySelector('#priority');
+    
+    /* Update to storage */
+    const projectName = document.querySelector('.taskPage').firstElementChild.innerText;
+    updateTaskInProject(projectName, title, taskName.value, taskDescription.value,
+                        taskDueDate.value, taskPriority.value);
+    displayTaskPage(projectName);
+    closeForm();
 }
 
 function editTask(e) {
-    /* Create Form */
+    const projectName = document.querySelector('.taskPage').firstElementChild.innerText;
+    const taskName = e.srcElement.parentElement.parentElement.previousSibling.innerText;
 
-    /* Close will close form*/
-    
-    /* Save will updateTask */
+    const project = getProject(projectName);
+    const task = project.getTask(taskName);
+
+    if (task == undefined) {
+        return;
+    }
+
+    openEditTaskForm(projectName, task.title, task.description, task.due, task.priority);
 }
 
 function deleteTask(e) {
@@ -478,4 +512,4 @@ function displayTaskPage(projectName) {
     });
 }
 
-export {loadProjects, addProject, addTask};
+export {loadProjects, addProject, addTask, updateTask};
