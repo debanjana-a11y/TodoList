@@ -26,11 +26,7 @@ function openNewProjectForm() {
     const closeImage = new Image();
     closeImage.src = closeIcon;
     closeImage.classList.add('closeImage');
-    closeImage.addEventListener('click', function() {
-        newProjectForm.classList.replace('formOpen', 'formClose');
-        formContainer.classList.replace('formContainerOpen', 'formContainerClose');
-        setTimeout(deleteForm, 1000);
-    });
+    closeImage.addEventListener('click', (e) => closeForm(e, true, false));
     header.appendChild(closeImage);
     newProjectForm.appendChild(header);
 
@@ -195,10 +191,15 @@ function openEditTaskForm(projectName, title, description, due, priority) {
     form.addEventListener('submit', (e) => updateTask(e, title));
 }
 
-function closeForm() {
+function closeForm(e, isCloseProject=false, isCloseTask=true) {
     const formContainer = document.querySelector('.formContainer');
-    const newTaskForm = document.querySelector('.newForm');
-    newTaskForm.classList.replace('formOpen', 'formClose');
+    if (isCloseProject == true) {
+        const newProjectForm = document.querySelector('.newProjectForm');
+        newProjectForm.classList.replace('formOpen', 'formClose');
+    } else if (isCloseTask == true) {
+        const newTaskForm = document.querySelector('.newForm');
+        newTaskForm.classList.replace('formOpen', 'formClose');
+    }
     formContainer.classList.replace('formContainerOpen', 'formContainerClose');
     setTimeout(deleteForm, 1000);
 }

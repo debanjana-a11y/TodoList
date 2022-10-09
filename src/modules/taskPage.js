@@ -110,7 +110,7 @@ class Task {
         this.priority = priority;
     }
 }
-
+createTaskPage
 function getProject(projectName) {
     let retProject = undefined;
     projectList.forEach(project => {
@@ -154,8 +154,26 @@ function addToProjectList(newProjectName) {
 function deleteFromProjectList(newProject) {
     for(let i = 0; i < projectList.length; i++) {
         if (projectList[i].name == newProject) {
+            delete(projectList[i]);
             projectList.splice(i, 1);
         } 
+    }
+    /* Display Blank Page to indicate steps to use TODO List */
+    if (projectList.length == 0) {
+        const content = document.querySelector('.content');
+        /* Delete previous existed Task Page Display */
+        const prevTaskPage = document.querySelector('.taskPage');
+        if (prevTaskPage != null) {
+            content.removeChild(prevTaskPage);
+        }
+
+        const directions = document.createElement('div');
+        const header = document.createElement('h2');
+        header.innerText = 'Please Add New Project First';
+
+        directions.appendChild(header);
+        directions.classList.add('directions');
+        content.appendChild(directions);
     }
 }
 
@@ -207,12 +225,14 @@ function addProjectToList(projectName) {
     projectItems.appendChild(newListItem);
 }
 
-function addProject() {
+function addProject(e) {
+    e.preventDefault();
     const projectName = document.querySelector('#projectName');
-    addProjectToList(projectName.value);
     /* Add to storage */
     addToProjectList(projectName.value);
-    projectName.value = '';
+    /* Add to DOM */
+    addProjectToList(projectName.value);
+    closeForm(null, true, false);
 }
 
 function loadProjects() {
@@ -241,6 +261,10 @@ function loadProjects() {
 function createTaskPage(currentActiveFolder) {
     const content = document.querySelector('.content');
     /* Delete previous existed Page Display */
+    const directions = document.querySelector('.directions');
+    if (directions != null) {
+        content.removeChild(directions);
+    }
     const prevTaskPage = document.querySelector('.taskPage');
     if (prevTaskPage != null) {
         content.removeChild(prevTaskPage);
@@ -318,12 +342,13 @@ function updateTaskInProject(projectName, oldTitle, taskName, taskDescription, t
     });
 }
 
-function deleteTaskFromProject(projectName, task) {
+function deleteTaskFromProject(projectName, taskTitle) {
     projectList.forEach(project => {
         if (project.name == projectName) {
             for(let i = 0; i < project.todos.length; i++) {
-                if (project.todos[i].title == task) {
-                    project.todos[i].splice(i, 1);
+                if (project.todos[i].title == taskTitle) {
+                    delete(project.todos[i]);
+                    project.todos.splice(i, 1);
                 }
             }
         }
@@ -402,8 +427,14 @@ function editTask(e) {
     openEditTaskForm(projectName, task.title, task.description, task.due, task.priority);
 }
 
-function deleteTask(e) {
-    console.log(e.target.parentElement.parentElement);
+function deleteTask(e) {    
+    const taskName = e.srcElement.parentElement.parentElement.previousSibling.innerText;
+    
+    /* Delete from storage */
+    const projectName = document.querySelector('.taskPage').firstElementChild.innerText;
+    deleteTaskFromProject(projectName, taskName);
+
+    displayTaskPage(projectName);
 }
 
 function displayTODO(todoList, todo) {
