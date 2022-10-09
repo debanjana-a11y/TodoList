@@ -299,18 +299,40 @@ function createTaskPage(currentActiveFolder) {
     displayTaskPage(projectName);
 }
 
-function markTaskAsTodo(folder, taskName) {
-    projectList.forEach(element => {
-        if (element.folder == folder) {
-            element.todos.push(taskName);
+function markTaskAsTodo(projectName, taskName) {
+    projectList.forEach(project => {
+        if (project.name == projectName) {
+            for(let i = 0; i < project.completed.length; i++) {
+                if (project.completed[i].title == taskName) {
+                    project.todos.push(
+                        new Task(project.completed[i].title,
+                                    project.completed[i].description,
+                                    project.completed[i].due,
+                                    project.completed[i].priority));
+                    delete(project.completed[i]);
+                    project.completed.splice(i, 1);
+                    break;
+                }
+            }
         }
     });
 }
 
-function markTaskAsCompleted(folder, taskName) {
-    projectList.forEach(element => {
-        if (element.folder == folder) {
-            element.completed.push(taskName);
+function markTaskAsCompleted(projectName, taskName) {
+    projectList.forEach(project => {
+        if (project.name == projectName) {
+            for(let i = 0; i < project.todos.length; i++) {
+                if (project.todos[i].title == taskName) {
+                    project.completed.push(
+                        new Task(project.todos[i].title,
+                                    project.todos[i].description,
+                                    project.todos[i].due,
+                                    project.todos[i].priority));
+                    delete(project.todos[i]);
+                    project.todos.splice(i, 1);
+                    break;
+                }
+            }
         }
     });
 }
@@ -349,6 +371,7 @@ function deleteTaskFromProject(projectName, taskTitle) {
                 if (project.todos[i].title == taskTitle) {
                     delete(project.todos[i]);
                     project.todos.splice(i, 1);
+                    break;
                 }
             }
         }
@@ -376,12 +399,17 @@ function deleteTODO(todoList, todoDiv) {
 }
 
 function changeStatus(e) {
-    const markedDoneTask = e.target.parentElement.parentElement;
-    markTaskAsCompleted(document.querySelector('.taskPage').firstElementChild.innerText, todo);
-    todoList.removeChild(markedDoneTask);
-    doneList.appendChild(markedDoneTask);
-    markedDoneTask.classList.remove('todoTask');
-    markedDoneTask.classList.add('doneTask');
+    const taskName = e.currentTarget.parentElement.childNodes[1].innerText;
+    const projectName = document.querySelector('.taskPage').firstElementChild.innerText;
+
+    /* Check if this task is pending or completed*/
+    const taskDiv = e.currentTarget.parentElement.parentElement;
+    if (taskDiv.classList.contains('todoTask')) {
+        markTaskAsCompleted(projectName, taskName);
+    } else if (taskDiv.classList.contains('doneTask')) {
+        markTaskAsTodo(projectName, taskName);
+    }
+    displayTaskPage(projectName);
 }
 
 function showInfo(e) {
@@ -499,7 +527,18 @@ function displayTODO(todoList, todo) {
 
 function displayCompleted(doneList, completedTask) {
     const completedDiv = document.createElement('div');
-    completedDiv.innerText = completedTask.title;
+    
+    const completedDivMain = document.createElement('div');
+    const radioBtn = document.createElement("input");
+    radioBtn.setAttribute("type", "radio");
+    radioBtn.addEventListener('change', changeStatus);
+    completedDivMain.appendChild(radioBtn);
+    const completedTitle = document.createElement('span');
+    completedTitle.innerText = completedTask.title;
+    completedDivMain.appendChild(completedTitle);
+    completedDivMain.classList.add('todoDivMain');
+
+    completedDiv.appendChild(completedDivMain);
     completedDiv.classList.add('doneTask');
     doneList.appendChild(completedDiv);
 }
@@ -534,7 +573,7 @@ function displayTaskPage(projectName) {
                     displayTODO(todoList, todo);
                 });
             }
-            // completd list
+            // completed list
             doneList.innerHTML = '';
             project.completed.forEach(completedTask => {
                 displayCompleted(doneList, completedTask);
