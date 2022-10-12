@@ -200,7 +200,9 @@ function deleteFromProjectList(newProject) {
         }
 
         const projectItems = document.querySelector('.project-items-mobile');
-        projectItems.innerText = "No Project";
+        if (projectItems != null) {
+            projectItems.innerText = "No Project";
+        }
 
         const directions = document.createElement('div');
         const header = document.createElement('h2');
