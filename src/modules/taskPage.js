@@ -234,12 +234,14 @@ function removeProject(e) {
             projectItemsDesktop.removeChild(projectDesktop);
         }
     });
-    projectItemsMobile.childNodes.forEach(projectMobile => {
-        if (projectMobile.innerText == projectName) {
-            deleteEvent(projectMobile);
-            projectItemsMobile.removeChild(projectMobile);
-        }
-    });
+    if (projectItemsMobile != null) {
+        projectItemsMobile.childNodes.forEach(projectMobile => {
+            if (projectMobile.innerText == projectName) {
+                deleteEvent(projectMobile);
+                projectItemsMobile.removeChild(projectMobile);
+            }
+        });
+    }
     deleteFromProjectList(projectName);
 }
 
