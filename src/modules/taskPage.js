@@ -126,25 +126,57 @@ function getProject(projectName) {
 let currentActiveFolder = undefined;
 
 function setFirstAsCurrentFolder() {
-    const listItems = document.querySelectorAll('.list-item');
-    if (listItems.length > 0) {
-        const defaultTaskPage = document.querySelectorAll('.list-item')[0];
+    /* Desktop view */
+    const desktopItems = document.querySelector('.project-items');
+    if (desktopItems.childNodes.length > 0) {
+        const defaultTaskPage = desktopItems.childNodes[0].childNodes[0].innerText;
+        setCurrentActiveFolder(defaultTaskPage);
+    }
+
+    /* Mobile view */
+    const mobileItems = document.querySelector('.project-items-mobile');
+    if (mobileItems != null && mobileItems.childNodes.length > 0) {
+        const defaultTaskPage = mobileItems.childNodes[0].childNodes[0].innerText;
         setCurrentActiveFolder(defaultTaskPage);
     }
 }
 
-function setCurrentActiveFolder(projectListItem) {
-    if (currentActiveFolder == projectListItem) return;
+function setCurrentActiveFolder(projectName) {
+    // if (currentActiveFolder == projectName) return;
+    const projectItemsDesktop = document.querySelector('.project-items');
+    const projectItemsMobile = document.querySelector('.project-items-mobile');
     if (currentActiveFolder != undefined) {
-        currentActiveFolder.classList.remove('activeFolder');
+        projectItemsDesktop.childNodes.forEach(projectDesktop => {
+            if (projectDesktop.innerText == currentActiveFolder) {
+                projectDesktop.classList.remove('activeFolder');
+            }
+        });
+        if (projectItemsMobile != null) {
+            projectItemsMobile.childNodes.forEach(projectMobile => {
+                if (projectMobile.innerText == currentActiveFolder) {
+                    projectMobile.classList.remove('activeFolder');
+                }
+            });
+        }
     }
-    currentActiveFolder = projectListItem;
-    projectListItem.classList.add('activeFolder');
+    currentActiveFolder = projectName;
+    projectItemsDesktop.childNodes.forEach(projectDesktop => {
+        if (projectDesktop.innerText == currentActiveFolder) {
+            projectDesktop.classList.add('activeFolder');
+        }
+    });
+    if (projectItemsMobile != null) {
+        projectItemsMobile.childNodes.forEach(projectMobile => {
+            if (projectMobile.innerText == currentActiveFolder) {
+                projectMobile.classList.add('activeFolder');
+            }
+        });
+    }
     createTaskPage(currentActiveFolder);
 }
 
-function changeActiveFolder(e) { 
-    setCurrentActiveFolder(e.target.parentElement);
+function changeActiveFolder(e) {
+    setCurrentActiveFolder(e.srcElement.innerText);
 }
 
 function addToProjectList(newProjectName) {
@@ -167,6 +199,9 @@ function deleteFromProjectList(newProject) {
             content.removeChild(prevTaskPage);
         }
 
+        const projectItems = document.querySelector('.project-items-mobile');
+        projectItems.innerText = "No Project";
+
         const directions = document.createElement('div');
         const header = document.createElement('h2');
         header.innerText = 'Please Add New Project First';
@@ -186,14 +221,26 @@ function deleteEvent(project) {
 }
 
 function removeProject(e) {
-    const projectItems = document.querySelector('.project-items');
-    let removingItem = e.target.parentElement;
-    if (currentActiveFolder == removingItem) {
+    const projectItemsDesktop = document.querySelector('.project-items');
+    const projectItemsMobile = document.querySelector('.project-items-mobile');
+    const projectName = e.target.parentElement.querySelector('span').innerText;
+
+    if (currentActiveFolder == projectName) {
         setFirstAsCurrentFolder();
     }
-    deleteEvent(removingItem);
-    projectItems.removeChild(removingItem);
-    deleteFromProjectList(removingItem.querySelector('span').innerText);
+    projectItemsDesktop.childNodes.forEach(projectDesktop => {
+        if (projectDesktop.innerText == projectName) {
+            deleteEvent(projectDesktop);
+            projectItemsDesktop.removeChild(projectDesktop);
+        }
+    });
+    projectItemsMobile.childNodes.forEach(projectMobile => {
+        if (projectMobile.innerText == projectName) {
+            deleteEvent(projectMobile);
+            projectItemsMobile.removeChild(projectMobile);
+        }
+    });
+    deleteFromProjectList(projectName);
 }
 
 function displayProject(name) {
@@ -213,16 +260,45 @@ function displayProject(name) {
     newListItem.appendChild(removeImage);  
     addEvent(newListItem);
 
-    /* Set New Project as Current Project */
-    setCurrentActiveFolder(newListItem);
+    return newListItem;
+}
+
+function displayProjectMobile(name) {
+    const newListItem = document.createElement('li');
+    newListItem.classList.add('project-item-mobile');
+    newListItem.classList.add('list-item');
+
+    const newProjectName = document.createElement('span')
+    newProjectName.innerText = name;
+    newListItem.appendChild(newProjectName);
+
+    const removeImage = new Image();
+    removeImage.src = removeIcon;
+    removeImage.classList.add('removeProjectMobile');
+    removeImage.addEventListener('click', removeProject);
+
+    newListItem.appendChild(removeImage);  
+    addEvent(newListItem);
 
     return newListItem;
 }
 
-function addProjectToList(projectName) {
+function addProjectToList(projectName, isMobile=false) {
     const projectItems = document.querySelector('.project-items');
     const newListItem = displayProject(projectName);
     projectItems.appendChild(newListItem);
+
+    /* Set New Project as Current Project */
+    setCurrentActiveFolder(projectName);
+}
+
+function addProjectToListMobile(projectName) {
+    const projectItems = document.querySelector('.project-items-mobile');
+    const newListItem = displayProjectMobile(projectName);
+    projectItems.appendChild(newListItem);
+
+    /* Set New Project as Current Project */
+    setCurrentActiveFolder(projectName);
 }
 
 function addProject(e) {
@@ -232,23 +308,33 @@ function addProject(e) {
     addToProjectList(projectName.value);
     /* Add to DOM */
     addProjectToList(projectName.value);
+    addProjectToListMobile(projectName.value);
     // closeForm(null, true, false);
 }
 
-function loadProjects() {
-    if (projectList.length == 0) {
+function loadProjects(isMobile = false) {
+    if (isMobile == false && projectList.length == 0) {
         sampleProjects.forEach(sample => {
             const newProject = new Project(sample.name, sample.todos, sample.completed);
             projectList.push(newProject);
         });
     }
 
-    projectList.forEach(project => {
-        addProjectToList(project.name);
-    });
+    if (isMobile == false) {
+        projectList.forEach(project => {
+            addProjectToList(project.name);
+        });
 
-    const newProjectBtn = document.querySelector('.addProject');
-    newProjectBtn.addEventListener('click', openNewProjectForm);
+        const newProjectBtn = document.querySelector('.addProject');
+        newProjectBtn.addEventListener('click', openNewProjectForm);
+    } else {
+        projectList.forEach(project => {
+            addProjectToListMobile(project.name);
+        });
+
+        const newProjectBtn = document.querySelector('.addProjectMobile');
+        newProjectBtn.addEventListener('click', openNewProjectForm);
+    }
 
     const folders = document.querySelectorAll('.list-item');
     
@@ -292,7 +378,7 @@ function createTaskPage(currentActiveFolder) {
     addTask.addEventListener('click', openNewTaskForm);
     addBtn.prepend(addTask);
 
-    const projectName = currentActiveFolder.querySelector('span').innerText;
+    const projectName = currentActiveFolder;
     const curretFolder = document.createElement('p');
     curretFolder.innerText = projectName;
     taskPage.prepend(curretFolder);

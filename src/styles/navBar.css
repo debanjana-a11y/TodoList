@@ -61,6 +61,10 @@ html, body {
     width: 30px;
 }
 
+.hamburger-project-list {
+    display: none;
+}
+
 .list-items {
     display: flex;
     flex-direction: column;
@@ -108,6 +112,17 @@ html, body {
     flex-direction: column;
     padding: 10px;
     overflow-y: auto;
+}
+
+.project-items-mobile {
+    width: 100%;
+    height: inherit;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+    overflow-y: auto;
+    color: white;
 }
 
 ::-webkit-scrollbar {
@@ -163,4 +178,104 @@ html, body {
     border: none;
     border-radius: 50px;
     color: white;
+}
+
+@media only screen and (min-width: 801px) {
+    .displayProjectListMobile {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    .content {
+        flex-direction: column;
+    }
+
+    .navBar {
+        width: 100%;
+        height: auto;
+    }
+
+    .navBarContent {
+        width: 100%;
+        flex-direction: row;
+        justify-content: center;
+        align-content: space-between;
+        column-gap: 60vw;
+    }
+
+    .officialHeader {
+        height: 3em;
+        font-size: 1em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        column-gap: 2vmin;
+        padding: 1vmin;
+    }
+
+    .officialHeader > img {
+        height: 5vmin;
+        width: 5vmin;
+    }
+
+    .officialHeader > h1 {
+        font-size: 5vmin;
+    }
+
+    .project-list, .newProject {
+        display: none;
+    }
+
+    .hamburger-project-list {
+        display: block;
+    }
+
+    .hamburgerMenu {
+        height: 5vmin;
+        cursor: pointer;
+    }
+
+    .displayProjectListMobile {
+        position: absolute;
+        z-index: 1;
+        height: auto;
+        width: 100%;
+        background-color: var(--light-shade-3);
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .displayProjectListMobile > header {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-content: space-between;
+        background-color: var(--light-shade-5);
+        font-size: 4vmin;
+    }
+
+    .newProjectMobile {
+        height: 4em;
+        width: 100%;
+        background-color: var(--light-shade-1);
+        display: flex;
+        justify-content: center;
+    }
+
+    .addProjectMobile {
+        height: 100%;
+        background-color: var(--light-shade-4);
+        color: white;
+        font-size: 1em;
+        padding: 1em;
+        border: none;
+        border-radius: 10px 25px;
+        cursor: pointer;
+    }
+
+    .addProjectMobile:hover {
+        transform: scaleX(1.1);
+    }
 }

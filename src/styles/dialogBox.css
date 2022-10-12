@@ -90,7 +90,8 @@ header {
 }
 
 .closeImage {
-    height: 20px;
+    height: 5vmin;
+    font-weight: bold;
     cursor: pointer;
 }
 
@@ -128,4 +129,10 @@ input, select{
     display: flex;
     flex-direction: column;
     row-gap: 1em;
+}
+
+@media only screen and (max-width: 800px) {
+    .newProjectForm {
+        width: 70vmin;
+    }
 }

@@ -3,7 +3,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100%;
+    min-height: 100%;
     width: 100%;
     background-color: var(--light-shade-5);
     color: purple;
@@ -156,4 +156,34 @@ input[type="radio"]:checked {
     height: 30px;
     background-color: inherit;
     border-radius: 50%;
+}
+
+@media only screen and (max-width: 800px) {
+    .directions {
+        flex-grow: 1;
+    }
+
+    .project-item-mobile {
+        width: 100%;
+        padding: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .project-item-mobile > span {
+        width: 100%;
+        font-size: 1.2em;
+        word-wrap: break-word;
+    }
+
+    .removeProjectMobile {
+        height: 15px;
+        display: none;
+        cursor: pointer;
+    }
+
+   .project-item-mobile:hover > .removeProjectMobile {
+        display: block;
+    }
 }
