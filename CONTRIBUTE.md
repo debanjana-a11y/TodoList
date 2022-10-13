@@ -4,3 +4,4 @@
 2. run "npm install" in root folder.
 3. run "npm run watch" in same place.
 4. Open "dist/index.html" via Live server.
+5. Any changes made in code will be applied in live server.
