@@ -49,19 +49,79 @@ export default function loadNavBar() {
     div.innerHTML =
     `<div class="navBarContent">
         <div class="officialHeader">
-            <h1>TodoList</h1>
+            <h2>TodoList</h2>
+            <div>
+            <!-- dark mode -->
+            <div>
+            <center>Dark</center>
+            </div>
+            <div class="toggle">
+                <input id="switch" type="checkbox" name="theme">
+                <label for="switch">Toggle</label>
+            </div> 
+        </div>
         </div>
         <div class="hamburger-project-list"></div>
+        
         <div class="project-list">
             <p>My Projects</p>
             <ul class="project-items"></ul>
         </div>
+        
         <div class="newProject">
             <button class="addProject">Add New Project</button>
         </div>
     </div>`;
 
     content.appendChild(div);
+
+    // dark mode js 
+    const html = document.querySelector("html")
+    const checkbox = document.querySelector("input[name=theme]")
+    const getStyle = (element, style) => 
+    window
+        .getComputedStyle(element)
+        .getPropertyValue(style);
+    const initialColors = {
+    bg: getStyle(html, "--bg"),
+    }
+    const darkMode = {
+    bg: "#333333", // override styles here
+    }
+    const transformKey = key => 
+    "--" + key.replace(/([A-Z])/, "-$1").toLowerCase();
+    const changeColors = (colors) => {
+    Object.keys(colors).map(key => 
+        html.style.setProperty(transformKey(key), colors[key]) 
+    );
+    }
+    checkbox.addEventListener("change", ({target}) => {
+        target.checked ? changeColors(darkMode) : changeColors(initialColors);
+    });
+    const isExistLocalStorage = (key) => 
+    localStorage.getItem(key) != null;
+    const createOrEditLocalStorage = (key, value) => 
+    localStorage.setItem(key, JSON.stringify(value));
+    const getValeuLocalStorage = (key) =>
+    JSON.parse(localStorage.getItem(key));
+    checkbox.addEventListener("change", ({target}) => {
+    if (target.checked) {
+        changeColors(darkMode);
+        createOrEditLocalStorage('mode','darkMode');
+    } else {
+        changeColors(initialColors);
+        createOrEditLocalStorage('mode','initialColors');
+    }
+    })
+    if(!isExistLocalStorage('mode'))
+    createOrEditLocalStorage('mode', 'initialColors');
+    if (getValeuLocalStorage('mode') === "initialColors") {
+    checkbox.removeAttribute('checked');
+    changeColors(initialColors);
+    } else {
+    checkbox.setAttribute('checked', "");
+    changeColors(darkMode);
+    }
 
     const logoImage = new Image();
     logoImage.alt = "Picture of Offcial logo";
