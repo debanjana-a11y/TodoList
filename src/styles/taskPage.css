@@ -115,7 +115,7 @@
     cursor: pointer;
 }
 
-.todoDivMain {
+.todoDivMain, .completedDivMain {
     width: 50%;
     display: flex;
     justify-content: flex-start;
@@ -132,7 +132,11 @@ input[type="radio"]:checked {
     accent-color: var(--light-shade-4);
 }
 
-.doneTask {
+.doneTaskRadio {
+    color: #c470c4;
+}
+
+.completedDivMain > span {
     text-decoration: line-through;
 }
 
