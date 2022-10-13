@@ -627,7 +627,7 @@ function displayCompleted(doneList, completedTask) {
     const completedTitle = document.createElement('span');
     completedTitle.innerText = completedTask.title;
     completedDivMain.appendChild(completedTitle);
-    completedDivMain.classList.add('todoDivMain');
+    completedDivMain.classList.add('completedDivMain');
 
     completedDiv.appendChild(completedDivMain);
     completedDiv.classList.add('doneTask');

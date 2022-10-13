@@ -115,7 +115,7 @@
     cursor: pointer;
 }
 
-.todoDivMain {
+.todoDivMain, .completedDivMain {
     width: 50%;
     display: flex;
     justify-content: flex-start;
@@ -136,7 +136,7 @@ input[type="radio"]:checked {
     color: #c470c4;
 }
 
-.todoDivMain > span {
+.completedDivMain > span {
     text-decoration: line-through;
 }
 
