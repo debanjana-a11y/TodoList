@@ -621,6 +621,7 @@ function displayCompleted(doneList, completedTask) {
     const completedDivMain = document.createElement('div');
     const radioBtn = document.createElement("input");
     radioBtn.setAttribute("type", "radio");
+    radioBtn.setAttribute("class", "doneTaskRadio fa-solid fa-circle-check");
     radioBtn.addEventListener('change', changeStatus);
     completedDivMain.appendChild(radioBtn);
     const completedTitle = document.createElement('span');

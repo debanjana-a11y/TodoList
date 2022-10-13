@@ -132,7 +132,11 @@ input[type="radio"]:checked {
     accent-color: var(--light-shade-4);
 }
 
-.doneTask {
+.doneTaskRadio {
+    color: #c470c4;
+}
+
+.todoDivMain > span {
     text-decoration: line-through;
 }
 
