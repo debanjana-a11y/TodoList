@@ -1,8 +1,8 @@
 import '../styles/taskPage.css';
 import addIcon from '../assets/add.png';
 import infoIcon from '../assets/infoIcon.png';
-import editIcon from '../assets/editBtn.jpg';
-import deleteIcon from '../assets/deleteBtn.jpg';
+import editIcon from '../assets/editBtn.png';
+import deleteIcon from '../assets/deleteBtn.png';
 import removeIcon from '../assets/trash-can.png';
 import completedTaskPic from '../assets/completedTask.jpg';
 import { openNewProjectForm, openNewTaskForm,
