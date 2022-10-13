@@ -1,6 +1,6 @@
 import '../styles/taskPage.css';
 import addIcon from '../assets/add.png';
-import infoIcon from '../assets/infoIcon.jpg';
+import infoIcon from '../assets/infoIcon.png';
 import editIcon from '../assets/editBtn.jpg';
 import deleteIcon from '../assets/deleteBtn.jpg';
 import removeIcon from '../assets/trash-can.png';
