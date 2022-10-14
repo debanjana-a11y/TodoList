@@ -5,6 +5,8 @@ import editIcon from "../assets/editBtn.png";
 import deleteIcon from "../assets/deleteBtn.png";
 import removeIcon from "../assets/trash-can.png";
 import completedTaskPic from "../assets/completedTask.jpg";
+import Task from "./Task";
+import Project from "./Project";
 import {
 	openNewProjectForm,
 	openNewTaskForm,
@@ -13,7 +15,13 @@ import {
 	closeForm,
 } from "./dialogBox";
 
-let projectList = [];
+let key = "projectList";
+
+let projectList = getLocalStorage("projectList");
+if (projectList == null || !projectList) {
+	projectList = [];
+	setLocalStorage(key, projectList);
+}
 
 const sampleProjects = [
 	{
@@ -61,64 +69,22 @@ const sampleProjects = [
 	},
 ];
 
-class Project {
-	constructor(name, todos = [], completed = []) {
-		this.name = name;
-		this.todos = [];
-		if (todos.length > 0) {
-			todos.forEach((todo) => {
-				this.todos.push(
-					new Task(todo.title, todo.description, todo.due, todo.priority)
-				);
-			});
-		}
-		this.completed = [];
-		if (completed.length > 0) {
-			completed.forEach((todo) => {
-				this.completed.push(
-					new Task(todo.title, todo.description, todo.due, todo.priority)
-				);
-			});
-		}
-	}
+function getTask(project, taskName) {
+	let retTask = undefined;
 
-	getTask(taskName) {
-		let retTask = undefined;
-		this.todos.forEach((task) => {
-			if (task.title == taskName) {
-				retTask = task;
-				return;
-			}
-		});
+	project.todos.forEach((task) => {
+		if (task.title == taskName) retTask = task;
+	});
 
-		if (retTask != undefined) return retTask;
+	if (retTask != undefined) return retTask;
 
-		this.completed.forEach((task) => {
-			if (task.title == taskName) {
-				retTask = task;
-				return;
-			}
-		});
-		return retTask;
-	}
+	project.completed.forEach((task) => {
+		if (task.title == taskName) retTask = task;
+	});
+
+	return retTask;
 }
 
-class Task {
-	constructor(name, description, due = null, priority = "low") {
-		this.title = name;
-		if (description == "") {
-			description = "No description is available";
-		}
-		this.description = description;
-		if (due == "" || due == null) {
-			this.due = new Date().toJSON().slice(0, 10);
-		} else {
-			this.due = due;
-		}
-		this.priority = priority;
-	}
-}
-createTaskPage;
 function getProject(projectName) {
 	let retProject = undefined;
 	projectList.forEach((project) => {
@@ -188,8 +154,24 @@ function changeActiveFolder(e) {
 	setCurrentActiveFolder(e.srcElement.innerText);
 }
 
+function setLocalStorage(key, value) {
+	if (value.length > 0) {
+		window.localStorage.setItem(key, JSON.stringify(value));
+	}
+}
+
+function getLocalStorage(key) {
+	return JSON.parse(window.localStorage.getItem(key));
+}
+
+function removeLocalStorage(key) {
+	window.localStorage.removeItem(key);
+	setLocalStorage(key, []);
+}
+
 function addToProjectList(newProjectName) {
 	projectList.push(new Project(newProjectName));
+	setLocalStorage(key, projectList);
 }
 
 function deleteFromProjectList(newProject) {
@@ -197,6 +179,8 @@ function deleteFromProjectList(newProject) {
 		if (projectList[i].name == newProject) {
 			delete projectList[i];
 			projectList.splice(i, 1);
+			if (projectList.length === 0) removeLocalStorage(key);
+			else setLocalStorage(key, projectList);
 		}
 	}
 	/* Display Blank Page to indicate steps to use TODO List */
@@ -335,6 +319,7 @@ function loadProjects(isMobile = false) {
 			);
 			projectList.push(newProject);
 		});
+		setLocalStorage(key, projectList);
 	}
 
 	if (isMobile == false) {
@@ -422,6 +407,7 @@ function markTaskAsTodo(projectName, taskName) {
 			}
 		}
 	});
+	setLocalStorage(key, projectList);
 }
 
 function markTaskAsCompleted(projectName, taskName) {
@@ -444,6 +430,7 @@ function markTaskAsCompleted(projectName, taskName) {
 			}
 		}
 	});
+	setLocalStorage(key, projectList);
 }
 
 function addTaskToProject(
@@ -467,6 +454,7 @@ function addTaskToProject(
 			}
 		}
 	}
+	setLocalStorage(key, projectList);
 }
 
 function updateTaskInProject(
@@ -490,6 +478,7 @@ function updateTaskInProject(
 			}
 		}
 	});
+	setLocalStorage(key, projectList);
 }
 
 function deleteTaskFromProject(projectName, taskTitle) {
@@ -504,6 +493,8 @@ function deleteTaskFromProject(projectName, taskTitle) {
 			}
 		}
 	});
+	if (projectList.length === 0) removeLocalStorage(key);
+	else setLocalStorage(key, projectList);
 }
 
 function addTask(e) {
@@ -554,7 +545,7 @@ function showInfo(e) {
 	const taskName = e.currentTarget.parentElement.childNodes[1].innerText;
 
 	const project = getProject(projectName);
-	const task = project.getTask(taskName);
+	const task = getTask(project, taskName);
 
 	if (task == undefined) {
 		return;
@@ -592,7 +583,7 @@ function editTask(e) {
 		e.srcElement.parentElement.parentElement.previousSibling.innerText;
 
 	const project = getProject(projectName);
-	const task = project.getTask(taskName);
+	const task = getTask(project, taskName);
 
 	if (task == undefined) {
 		return;
