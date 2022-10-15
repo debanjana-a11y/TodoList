@@ -17,6 +17,13 @@ html, body {
     height: 100%;
 }
 
+html {
+    --bg: #FCFCFC;
+}
+body {
+    background-color: var(--bg);
+}
+
 .content {
     min-height: 100%;
     display: flex;
@@ -178,6 +185,44 @@ html, body {
     border: none;
     border-radius: 50px;
     color: white;
+}
+
+/* dark mode */
+input[type=checkbox]{
+    height: 0;
+    width: 0;
+    visibility: hidden;
+}
+label {
+    cursor: pointer;
+    text-indent: -9999px;
+    width: 52px;
+    height: 27px;
+    background: var(--light-shade-1);
+    float: right;
+    border-radius: 100px;
+    position: relative;
+}
+label::after{
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    border-radius: 90px;
+    transition: 0.3s;
+}
+input:checked + label {
+    background-color: black;
+}
+input:checked + label::after {
+    left: calc(100% - 5px);
+    transform: translateX(-100%);
+}
+label:active:after {
+    width: 45px;
 }
 
 @media only screen and (min-width: 801px) {
