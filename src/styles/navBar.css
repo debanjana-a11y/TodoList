@@ -277,8 +277,13 @@ label:active:after {
     }
 
     .hamburgerMenu {
-        height: 5vmin;
+        height: 32px;
+        width: 32px;
         cursor: pointer;
+        margin-right: 24px;
+        position: absolute;
+        top: 24px;
+        right: 18px;
     }
 
     .displayProjectListMobile {
