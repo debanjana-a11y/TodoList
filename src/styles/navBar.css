@@ -224,6 +224,20 @@ input:checked + label::after {
 label:active:after {
     width: 45px;
 }
+.darkMode{
+    position: absolute;
+    bottom: 18px;
+    right: 42px;
+    background-color: #FCFCFC;
+    padding: 6px;
+    border-radius: 4px;
+    box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+}
+.darkMode > h6{
+    position: absolute;
+    right: 16px;
+    bottom: 6px;
+}
 
 @media only screen and (min-width: 801px) {
     .displayProjectListMobile {

@@ -52,13 +52,12 @@ export default function loadNavBar() {
             <h2>TodoList</h2>
             <div>
             <!-- dark mode -->
-            <div>
-            <center>Dark</center>
+            <div class ="darkMode">
+                <div class="toggle">
+                    <input id="switch" type="checkbox" name="theme">
+                    <label for="switch"></label>
+                </div> <h6>Dark</h6>
             </div>
-            <div class="toggle">
-                <input id="switch" type="checkbox" name="theme">
-                <label for="switch">Toggle</label>
-            </div> 
         </div>
         </div>
         <div class="hamburger-project-list"></div>
