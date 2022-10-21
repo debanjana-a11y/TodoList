@@ -90,7 +90,7 @@
 }
 
 .todoTask, .doneTask {
-    background-color: #D6B5E5;
+    background-color: var(--light-shade-6);
     padding: 0.5em;
     width: 100%;
     font-size: 1.2em;
@@ -133,7 +133,7 @@ input[type="radio"]:checked {
 }
 
 .doneTaskRadio {
-    color: #c470c4;
+    color: var(--radio-button);
 }
 
 .completedDivMain > span {
