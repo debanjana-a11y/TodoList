@@ -4,6 +4,9 @@
     --light-shade-3: rgb(170, 83, 170);
     --light-shade-4: purple;
     --light-shade-5: #E8CFF3;
+    --light-shade-6: #D6B5E5;
+    --radio-button: #c470c4;
+    --content-bg: #FCFCFC;
 }
 
 * {
@@ -17,16 +20,10 @@ html, body {
     height: 100%;
 }
 
-html {
-    --bg: #FCFCFC;
-}
-body {
-    background-color: var(--bg);
-}
-
 .content {
     min-height: 100%;
     display: flex;
+    background-color: var(--content-bg);
 }
 
 .blurredContent {
@@ -193,7 +190,8 @@ input[type=checkbox]{
     width: 0;
     visibility: hidden;
 }
-label {
+
+.modeLabel {
     cursor: pointer;
     text-indent: -9999px;
     width: 52px;
@@ -203,7 +201,7 @@ label {
     border-radius: 100px;
     position: relative;
 }
-label::after{
+.modeLabel::after{
     content: '';
     position: absolute;
     top: 3px;
@@ -214,15 +212,36 @@ label::after{
     border-radius: 90px;
     transition: 0.3s;
 }
-input:checked + label {
+input:checked + .modeLabel {
     background-color: black;
 }
-input:checked + label::after {
+input:checked + .modeLabel::after {
     left: calc(100% - 5px);
     transform: translateX(-100%);
 }
-label:active:after {
+.modeLabel:active:after {
     width: 45px;
+}
+.darkMode{
+    position: absolute;
+    bottom: 18px;
+    right: 42px;
+    background-color: #FCFCFC;
+    padding: 6px;
+    border-radius: 4px;
+    box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+}
+
+.toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.darkMode > h6{
+    position: absolute;
+    right: 16px;
+    bottom: 6px;
 }
 
 @media only screen and (min-width: 801px) {
@@ -277,8 +296,13 @@ label:active:after {
     }
 
     .hamburgerMenu {
-        height: 5vmin;
+        height: 32px;
+        width: 32px;
         cursor: pointer;
+        margin-right: 24px;
+        position: absolute;
+        top: 24px;
+        right: 18px;
     }
 
     .displayProjectListMobile {
