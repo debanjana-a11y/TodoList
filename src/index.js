@@ -1,3 +1,4 @@
-import loadNavBar from './modules/navBar';
+import {loadNavBar, applyMode} from './modules/navBar';
 
 loadNavBar();
+applyMode();

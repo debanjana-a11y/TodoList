@@ -7,6 +7,7 @@ import removeIcon from "../assets/trash-can.png";
 import completedTaskPic from "../assets/completedTask.jpg";
 import Task from "./Task";
 import Project from "./Project";
+import {getLocalStorage, setLocalStorage, removeLocalStorage} from './storage';
 import {
 	openNewProjectForm,
 	openNewTaskForm,
@@ -152,21 +153,6 @@ function setCurrentActiveFolder(projectName) {
 
 function changeActiveFolder(e) {
 	setCurrentActiveFolder(e.srcElement.innerText);
-}
-
-function setLocalStorage(key, value) {
-	if (value.length > 0) {
-		window.localStorage.setItem(key, JSON.stringify(value));
-	}
-}
-
-function getLocalStorage(key) {
-	return JSON.parse(window.localStorage.getItem(key));
-}
-
-function removeLocalStorage(key) {
-	window.localStorage.removeItem(key);
-	setLocalStorage(key, []);
 }
 
 function addToProjectList(newProjectName) {
