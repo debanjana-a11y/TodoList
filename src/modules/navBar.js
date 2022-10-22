@@ -115,15 +115,13 @@ function loadNavBar() {
 	div.classList.add('navBar');
 	div.innerHTML = `<div class="navBarContent">
         <div class="officialHeader">
-            <h2>TodoList</h2>
+            <h1>TodoList</h1>
         </div>
         <div class="hamburger-project-list"></div>
-        
         <div class="project-list">
             <p>My Projects</p>
             <ul class="project-items"></ul>
         </div>
-        
         <div class="newProject">
             <button class="addProject">Add New Project</button>
         </div>
