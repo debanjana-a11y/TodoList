@@ -1,193 +1,206 @@
 .directions {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 100%;
-    width: 100%;
-    background-color: var(--light-shade-5);
-    color: purple;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	min-height: 100%;
+	width: 100%;
+	background-color: var(--light-shade-5);
+	color: purple;
 }
 
 .taskPage {
-    height: 100%;
-    flex-grow: 1;
-    padding: 2em;
-    display: flex;
-    flex-direction: column;
-    row-gap: 1em;
+	height: 100%;
+	flex-grow: 1;
+	padding: 2em;
+	display: flex;
+	flex-direction: column;
+	row-gap: 1em;
 }
 
 .taskPage > p {
-    font-size: 1.5em;
-    font-weight: bold;
+	font-size: 1.5em;
+	font-weight: bold;
+    color: var(--task-text);
 }
 
 .taskHeader {
-    width: 100%;
-    background-color: var(--light-shade-4);
+	width: 100%;
+	background-color: var(--light-shade-4);
 }
 
 .taskHeader > button {
-    padding: 0.5em;
-    background-color: inherit;
-    font-size: 1.5em;
-    color: white;
-    border: none;
-    display: flex;
-    column-gap: 1em;
-    align-items: center;
+	padding: 0.5em;
+	background-color: inherit;
+	font-size: 1.5em;
+	color: white;
+	border: none;
+	display: flex;
+	column-gap: 1em;
+	align-items: center;
 }
 
 .addTask {
-    height: 1em;
-    background-color: white;
-    border-radius: 50%;
-    border: 1px solid white;
-    cursor: pointer;
+	height: 1em;
+	background-color: white;
+	border-radius: 50%;
+	border: 1px solid white;
+	cursor: pointer;
 }
 
 .addTask:hover {
-    transform: scale(1.2);
+	transform: scale(1.2);
 }
 
 .taskContent {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 }
 
 .taskContent > h3 {
-    margin-top: 3em;
-    margin-bottom: 1em;
-    height: 2.5em;
-    padding: 0.5em;
-    align-items: center;
-    color: white;
-    background-color: var(--light-shade-4);
+	margin-top: 3em;
+	margin-bottom: 1em;
+	height: 2.5em;
+	padding: 0.5em;
+	align-items: center;
+	color: white;
+	background-color: var(--light-shade-4);
 }
 
-.todoList, .doneList {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    row-gap: 1em;
+.todoList,
+.doneList {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	row-gap: 1em;
 }
 
 .todoList > p {
-    font-size: large;
+	font-size: large;
 }
 
 .noWorkDiv {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.noWorkDiv > p {
+    color: var(--task-text);
 }
 
 .noWorkImage {
-    width: 40vw;
+	width: 40vw;
 }
 
-.todoTask, .doneTask {
-    background-color: var(--light-shade-6);
-    padding: 0.5em;
-    width: 100%;
-    font-size: 1.2em;
-    display: flex;
-    /* justify-content: space-between; */
+.todoTask,
+.doneTask {
+	background-color: var(--light-shade-6);
+	padding: 0.5em;
+	width: 100%;
+	font-size: 1.2em;
+	display: flex;
+	/* justify-content: space-between; */
 }
 
 .lowTodoTask {
-    border-left: 0.3em solid var(--light-shade-4);
+	border-left: 0.3em solid var(--light-shade-4);
 }
 
 .mediumTodoTask {
-    border-left: 0.3em solid yellow;
+	border-left: 0.3em solid yellow;
 }
 
 .highTodoTask {
-    border-left: 0.3em solid red;
+	border-left: 0.3em solid red;
 }
 
-.todoTask:hover, .doneTask:hover {
-    background-color: var(--light-shade-1);
-    cursor: pointer;
+.todoTask:hover,
+.doneTask:hover {
+	background-color: var(--light-shade-1);
+	cursor: pointer;
 }
 
-.todoDivMain, .completedDivMain {
-    width: 50%;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    column-gap: 1em;
+.todoDivMain,
+.completedDivMain {
+	width: 50%;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	column-gap: 1em;
 }
 
-input[type="radio"] {
-    transform: scale(2);
-    margin-left: 1em;
+input[type='radio'] {
+	transform: scale(2);
+	margin-left: 1em;
 }
 
-input[type="radio"]:checked {
-    accent-color: var(--light-shade-4);
+input[type='radio']:checked {
+	accent-color: var(--light-shade-4);
 }
 
 .doneTaskRadio {
-    color: var(--radio-button);
+	color: var(--radio-button);
 }
 
 .completedDivMain > span {
-    text-decoration: line-through;
+	text-decoration: line-through;
 }
 
 .todoDivSettings {
-    display: flex;
-    width: 50%;
-    justify-content: space-evenly;
+	display: flex;
+	width: 50%;
+	justify-content: space-evenly;
 }
 
-.todoDivMain > button, .todoDivSettings > button {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
+.todoDivMain > button,
+.todoDivSettings > button {
+	background-color: transparent;
+	border: none;
+	cursor: pointer;
 }
 
-.todoDivMain > button:hover, .todoDivSettings > button:hover {
-    transform: scale(1.2);
+.todoDivMain > button:hover,
+.todoDivSettings > button:hover {
+	transform: scale(1.2);
 }
 
-.infoIconImg, .editTaskImage, .deleteTaskImage {
-    height: 30px;
-    background-color: inherit;
-    border-radius: 50%;
+.infoIconImg,
+.editTaskImage,
+.deleteTaskImage {
+	height: 30px;
+	background-color: inherit;
+	border-radius: 50%;
 }
 
 @media only screen and (max-width: 800px) {
-    .directions {
-        flex-grow: 1;
-    }
+	.directions {
+		flex-grow: 1;
+	}
 
-    .project-item-mobile {
-        width: 100%;
-        padding: 5px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    
-    .project-item-mobile > span {
-        width: 100%;
-        font-size: 1.2em;
-        word-wrap: break-word;
-    }
+	.project-item-mobile {
+		width: 100%;
+		padding: 5px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
 
-    .removeProjectMobile {
-        height: 15px;
-        display: none;
-        cursor: pointer;
-    }
+	.project-item-mobile > span {
+		width: 100%;
+		font-size: 1.2em;
+		word-wrap: break-word;
+	}
 
-   .project-item-mobile:hover > .removeProjectMobile {
-        display: block;
-    }
+	.removeProjectMobile {
+		height: 15px;
+		display: none;
+		cursor: pointer;
+	}
+
+	.project-item-mobile:hover > .removeProjectMobile {
+		display: block;
+	}
 }

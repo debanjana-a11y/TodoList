@@ -47,8 +47,6 @@ function displayProjectsFromMenu() {
 }
 
 function applyMode() {
-	// const getStyle = (element, style) =>
-	// 	window.getComputedStyle(element).getPropertyValue(style);
 	const lightMode = {
 		'light-shade-1': 'rgb(196, 112, 196)',
 		'light-shade-2': '#C291D9',
@@ -56,10 +54,11 @@ function applyMode() {
 		'light-shade-4': 'purple',
 		'light-shade-5': '#E8CFF3',
 		'light-shade-6': '#D6B5E5',
+		'mobile-project-text': 'white',
+		'task-text': 'black',
 		'radio-button': '#c470c4',
 		'content-bg': '#FCFCFC',
 	};
-	// override styles are here
 	const darkMode = {
 		'light-shade-1': '#EAEAEA',
 		'light-shade-2': '#C5C5C5',
@@ -67,6 +66,8 @@ function applyMode() {
 		'light-shade-4': 'grey',
 		'light-shade-5': '#C5C5C5',
 		'light-shade-6': 'lightgrey',
+		'mobile-project-text': 'black',
+		'task-text': 'white',
 		'radio-button': '#black',
 		'content-bg': '#333333',
 	};

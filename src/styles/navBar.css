@@ -1,340 +1,344 @@
 :root {
-    --light-shade-1: rgb(196, 112, 196);
-    --light-shade-2: #C291D9;
-    --light-shade-3: rgb(170, 83, 170);
-    --light-shade-4: purple;
-    --light-shade-5: #E8CFF3;
-    --light-shade-6: #D6B5E5;
-    --radio-button: #c470c4;
-    --content-bg: #FCFCFC;
+	--light-shade-1: rgb(196, 112, 196);
+	--light-shade-2: #c291d9;
+	--light-shade-3: rgb(170, 83, 170);
+	--light-shade-4: purple;
+	--light-shade-5: #e8cff3;
+	--light-shade-6: #d6b5e5;
+	--mobile-project-text: white;
+    --task-text: black;
+	--radio-button: #c470c4;
+	--content-bg: #fcfcfc;
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Literata';
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'Literata';
 }
 
-html, body {
-    height: 100%;
+html,
+body {
+	height: 100%;
 }
 
 .content {
-    min-height: 100%;
-    display: flex;
-    background-color: var(--content-bg);
+	min-height: 100%;
+	display: flex;
+	background-color: var(--content-bg);
 }
 
 .blurredContent {
-    filter:blur(1px);
+	filter: blur(1px);
 }
 
 .lightMode {
-    background-color: var(--light-shade-5);
+	background-color: var(--light-shade-5);
 }
 
 .navBar {
-    background-color: var(--light-shade-2);
-    width: 40vmin;
-    min-height: 100%;
+	background-color: var(--light-shade-2);
+	width: 40vmin;
+	min-height: 100%;
 }
 
 .navBarContent {
-    height: 100%;
-    padding: 2vmin;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    row-gap: 2em;
+	height: 100%;
+	padding: 2vmin;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	row-gap: 2em;
 }
 
 .officialHeader {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    column-gap: 1em;
-    padding: 1em;
-    background-color: hsla(0, 100%, 100%, 0.5);
-    border-radius: 20px;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	column-gap: 1em;
+	padding: 1em;
+	background-color: hsla(0, 100%, 100%, 0.5);
+	border-radius: 20px;
 }
 
 .officialHeader > img {
-    height: 30px;
-    width: 30px;
+	height: 30px;
+	width: 30px;
 }
 
 .hamburger-project-list {
-    display: none;
+	display: none;
 }
 
 .list-items {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    list-style: none;
-    font-size: 1.5em;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	list-style: none;
+	font-size: 1.5em;
 }
 
 .navFolder {
-    padding: 10px;
-    display: flex;
+	padding: 10px;
+	display: flex;
 }
 
 .activeFolder {
-    text-decoration: underline;
+	text-decoration: underline;
 }
 
 .navBarIcon {
-    height: 1em;
+	height: 1em;
 }
 
 .project-list {
-    width: 100%;
-    height: 60vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex-grow: 1;
+	width: 100%;
+	height: 60vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	flex-grow: 1;
 }
 
 .project-list > p {
-    font-size: 1.5em;
-    width: 100%;
-    padding: 1rem;
-    font-weight: bold;
-    background-color: var(--light-shade-3);
-    text-align: center;
+	font-size: 1.5em;
+	width: 100%;
+	padding: 1rem;
+	font-weight: bold;
+	background-color: var(--light-shade-3);
+	text-align: center;
 }
 
 .project-items {
-    width: 100%;
-    height: inherit;
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
-    overflow-y: auto;
+	width: 100%;
+	height: inherit;
+	list-style: none;
+	display: flex;
+	flex-direction: column;
+	padding: 10px;
+	overflow-y: auto;
 }
 
 .project-items-mobile {
-    width: 100%;
-    height: inherit;
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    padding: 1em;
-    overflow-y: auto;
-    color: white;
+	width: 100%;
+	height: inherit;
+	list-style: none;
+	display: flex;
+	flex-direction: column;
+	padding: 1em;
+	overflow-y: auto;
+	color: var(--mobile-project-text);
 }
 
 ::-webkit-scrollbar {
-    background: var(--light-shade-3);
+	background: var(--light-shade-3);
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--light-shade-4);
+	background: var(--light-shade-4);
 }
 
 .project-item {
-    width: 100%;
-    padding: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+	width: 100%;
+	padding: 5px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .project-item > span {
-    width: 100%;
-    font-size: 1.2em;
-    word-wrap: break-word;
+	width: 100%;
+	font-size: 1.2em;
+	word-wrap: break-word;
 }
 
 .removeProject {
-    height: 15px;
-    display: none;
-    cursor: pointer;
+	height: 15px;
+	display: none;
+	cursor: pointer;
 }
 
 .list-item:hover {
-    background-color: var(--light-shade-1);
-    cursor: pointer;
+	background-color: var(--light-shade-1);
+	cursor: pointer;
 }
 
 .project-item:hover > .removeProject {
-    display: block;
+	display: block;
 }
 
 .newProject {
-    /* position: absolute; */
-    bottom: 2em;
-    width: 30vmin;
-    cursor: pointer;
+	bottom: 2em;
+	width: 30vmin;
+	cursor: pointer;
 }
 
 .addProject {
-    font-size: 1em;
-    height: 3em;
-    width: 100%;
-    cursor: pointer;
-    background-color: var(--light-shade-4);
-    border: none;
-    border-radius: 50px;
-    color: white;
+	font-size: 1em;
+	height: 3em;
+	width: 100%;
+	cursor: pointer;
+	background-color: var(--light-shade-4);
+	border: none;
+	border-radius: 50px;
+	color: white;
 }
 
 /* dark mode */
-input[type=checkbox]{
-    height: 0;
-    width: 0;
-    visibility: hidden;
+input[type='checkbox'] {
+	height: 0;
+	width: 0;
+	visibility: hidden;
 }
 
 .modeLabel {
-    cursor: pointer;
-    text-indent: -9999px;
-    width: 3em;
-    height: 1.7em;
-    background: var(--light-shade-1);
-    float: right;
-    border-radius: 100px;
-    position: relative;
+	cursor: pointer;
+	width: 3em;
+	height: 1.6em;
+	background: var(--light-shade-1);
+	float: right;
+	border-radius: 100px;
+	position: relative;
 }
-.modeLabel::after{
-    content: '';
-    position: absolute;
-    top: 3px;
-    left: 3px;
-    width: 20px;
-    height: 20px;
-    background-color: white;
-    border-radius: 90px;
-    transition: 0.3s;
+.modeLabel::after {
+	content: '';
+	position: absolute;
+	top: 3px;
+	left: 3px;
+	width: 20px;
+	height: 20px;
+	background-color: white;
+	border-radius: 90px;
+	transition: 0.3s;
 }
 input:checked + .modeLabel {
-    background-color: black;
+	background-color: black;
 }
 input:checked + .modeLabel::after {
-    left: calc(100% - 5px);
-    transform: translateX(-100%);
+	left: calc(100% - 5px);
+	transform: translateX(-100%);
 }
 .modeLabel:active:after {
-    width: 45px;
+	width: 45px;
 }
 
- .darkMode{
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    background-color: #FCFCFC;
-    padding: 0.5em;
-    border-radius: 4px;
-    box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+.darkMode {
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+	background-color: #fcfcfc;
+	padding: 0.5em;
+	border-radius: 4px;
+	box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px,
+		rgba(6, 24, 44, 0.65) 0px 4px 6px -1px,
+		rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
 }
 
 .toggle {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 @media only screen and (min-width: 801px) {
-    .displayProjectListMobile {
-        display: none;
-    }
+	.displayProjectListMobile {
+		display: none;
+	}
 }
 
 @media only screen and (max-width: 800px) {
-    .content {
-        flex-direction: column;
-    }
+	.content {
+		flex-direction: column;
+	}
 
-    .navBar {
-        width: 100%;
-        height: auto;
-    }
+	.navBar {
+		width: 100%;
+		height: auto;
+	}
 
-    .navBarContent {
-        width: 100%;
-        flex-direction: row;
-        justify-content: center;
-        align-content: space-between;
-        column-gap: 60vw;
-    }
+	.navBarContent {
+		width: 100%;
+		flex-direction: row;
+		justify-content: center;
+		align-content: space-between;
+		column-gap: 60vw;
+	}
 
-    .officialHeader {
-        height: 3em;
-        font-size: 1em;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        column-gap: 2vmin;
-        padding: 1vmin;
-    }
+	.officialHeader {
+		height: 3em;
+		font-size: 1em;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		column-gap: 2vmin;
+		padding: 1vmin;
+	}
 
-    .officialHeader > img {
-        height: 5vmin;
-        width: 5vmin;
-    }
+	.officialHeader > img {
+		height: 5vmin;
+		width: 5vmin;
+	}
 
-    .officialHeader > h1 {
-        font-size: 5vmin;
-    }
+	.officialHeader > h1 {
+		font-size: 5vmin;
+	}
 
-    .project-list, .newProject {
-        display: none;
-    }
+	.project-list,
+	.newProject {
+		display: none;
+	}
 
-    .hamburger-project-list {
-        display: block;
-    }
+	.hamburger-project-list {
+		display: block;
+	}
 
-    .hamburgerMenu {
-        height: 5vmin;
-        cursor: pointer;
-    }
+	.hamburgerMenu {
+		height: 5vmin;
+		cursor: pointer;
+	}
 
-    .displayProjectListMobile {
-        position: absolute;
-        z-index: 1;
-        height: auto;
-        width: 100%;
-        background-color: var(--light-shade-3);
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    
-    .displayProjectListMobile > header {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-content: space-between;
-        background-color: var(--light-shade-5);
-        font-size: 4vmin;
-    }
+	.displayProjectListMobile {
+		position: absolute;
+		z-index: 1;
+		height: auto;
+		width: 100%;
+		background-color: var(--light-shade-3);
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+	}
 
-    .newProjectMobile {
-        height: 4em;
-        width: 100%;
-        background-color: var(--light-shade-1);
-        display: flex;
-        justify-content: center;
-    }
+	.displayProjectListMobile > header {
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+		align-content: space-between;
+		background-color: var(--light-shade-5);
+		font-size: 4vmin;
+	}
 
-    .addProjectMobile {
-        height: 100%;
-        background-color: var(--light-shade-4);
-        color: white;
-        font-size: 1em;
-        padding: 1em;
-        border: none;
-        border-radius: 10px 25px;
-        cursor: pointer;
-    }
+	.newProjectMobile {
+		height: 4em;
+		width: 100%;
+		background-color: var(--light-shade-1);
+		display: flex;
+		justify-content: center;
+	}
 
-    .addProjectMobile:hover {
-        transform: scaleX(1.1);
-    }
+	.addProjectMobile {
+		height: 100%;
+		background-color: var(--light-shade-4);
+		color: white;
+		font-size: 1em;
+		padding: 1em;
+		border: none;
+		border-radius: 10px 25px;
+		cursor: pointer;
+	}
+
+	.addProjectMobile:hover {
+		transform: scaleX(1.1);
+	}
 }
