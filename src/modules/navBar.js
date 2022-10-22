@@ -116,13 +116,6 @@ function loadNavBar() {
 	div.innerHTML = `<div class="navBarContent">
         <div class="officialHeader">
             <h2>TodoList</h2>
-            <!-- dark mode -->
-            <div class ="darkMode">
-                <div class="toggle">
-                    <input id="switch" type="checkbox" name="theme">
-                    <label for="switch" class="modeLabel"></label>
-                </div>
-            </div>
         </div>
         <div class="hamburger-project-list"></div>
         

@@ -194,8 +194,8 @@ input[type=checkbox]{
 .modeLabel {
     cursor: pointer;
     text-indent: -9999px;
-    width: 52px;
-    height: 27px;
+    width: 3em;
+    height: 1.7em;
     background: var(--light-shade-1);
     float: right;
     border-radius: 100px;
@@ -222,12 +222,13 @@ input:checked + .modeLabel::after {
 .modeLabel:active:after {
     width: 45px;
 }
-.darkMode{
+
+ .darkMode{
     position: absolute;
-    bottom: 18px;
-    right: 42px;
+    bottom: 10px;
+    right: 10px;
     background-color: #FCFCFC;
-    padding: 6px;
+    padding: 0.5em;
     border-radius: 4px;
     box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
 }
@@ -236,12 +237,6 @@ input:checked + .modeLabel::after {
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.darkMode > h6{
-    position: absolute;
-    right: 16px;
-    bottom: 6px;
 }
 
 @media only screen and (min-width: 801px) {
@@ -296,13 +291,8 @@ input:checked + .modeLabel::after {
     }
 
     .hamburgerMenu {
-        height: 32px;
-        width: 32px;
+        height: 5vmin;
         cursor: pointer;
-        margin-right: 24px;
-        position: absolute;
-        top: 24px;
-        right: 18px;
     }
 
     .displayProjectListMobile {
