@@ -132,6 +132,10 @@
 	column-gap: 1em;
 }
 
+.completedDivMain {
+	flex-grow: 1;
+}
+
 input[type='radio'] {
 	transform: scale(2);
 	margin-left: 1em;
