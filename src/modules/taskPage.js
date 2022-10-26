@@ -528,7 +528,7 @@ function changeStatus(e) {
 function showInfo(e) {
 	const projectName =
 		document.querySelector(".taskPage").firstElementChild.innerText;
-	const taskName = e.currentTarget.parentElement.childNodes[1].innerText;
+	const taskName = e.currentTarget.parentElement.parentElement.childNodes[0].innerText;
 
 	const project = getProject(projectName);
 	const task = getTask(project, taskName);
@@ -607,6 +607,10 @@ function displayTODO(todoList, todo) {
 	const todoTitle = document.createElement("span");
 	todoTitle.innerText = todo.title;
 	todoDivMain.appendChild(todoTitle);
+	todoDivMain.classList.add("todoDivMain");
+	todoDiv.appendChild(todoDivMain);
+
+	const todoDivSettings = document.createElement("div");
 	const details = document.createElement("button");
 	const infoIconImg = new Image();
 	infoIconImg.src = infoIcon;
@@ -614,13 +618,8 @@ function displayTODO(todoList, todo) {
 	infoIconImg.classList.add("infoIconImg");
 	details.addEventListener("click", showInfo);
 	details.appendChild(infoIconImg);
-	todoDivMain.appendChild(details);
-	todoDivMain.classList.add("todoDivMain");
-	todoDiv.appendChild(todoDivMain);
+	todoDivSettings.appendChild(details);
 
-	const todoDivSettings = document.createElement("div");
-	const remainingTime = document.createElement("span");
-	todoDivSettings.appendChild(remainingTime);
 	const editBtn = document.createElement("button");
 	const editTaskImage = new Image();
 	editTaskImage.src = editIcon;

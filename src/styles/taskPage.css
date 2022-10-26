@@ -102,7 +102,8 @@
 	width: 100%;
 	font-size: 1.2em;
 	display: flex;
-	/* justify-content: space-between; */
+	flex-wrap: wrap;
+	justify-content: space-between;
 }
 
 .lowTodoTask {
@@ -125,11 +126,15 @@
 
 .todoDivMain,
 .completedDivMain {
-	width: 50%;
+	width: 70%;
 	display: flex;
 	justify-content: flex-start;
 	align-items: center;
 	column-gap: 1em;
+}
+
+.completedDivMain {
+	flex-grow: 1;
 }
 
 input[type='radio'] {
@@ -151,7 +156,7 @@ input[type='radio']:checked {
 
 .todoDivSettings {
 	display: flex;
-	width: 50%;
+	width: 30%;
 	justify-content: space-evenly;
 }
 
@@ -202,5 +207,19 @@ input[type='radio']:checked {
 
 	.project-item-mobile:hover > .removeProjectMobile {
 		display: block;
+	}
+}
+
+
+@media only screen and (max-width: 460px) {
+	.todoDivMain {
+		width: 100%;
+	}
+
+	.todoDivSettings {
+		margin-top: 0.5em;
+		display: flex;
+		width: 100%;
+		justify-content: space-evenly;
 	}
 }
