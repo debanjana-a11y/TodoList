@@ -187,7 +187,7 @@ body {
 }
 
 /* dark mode */
-input[type='checkbox'] {
+.theme {
 	height: 0;
 	width: 0;
 	visibility: hidden;
@@ -213,6 +213,7 @@ input[type='checkbox'] {
 	border-radius: 90px;
 	transition: 0.3s;
 }
+
 input:checked + .modeLabel {
 	background-color: black;
 }

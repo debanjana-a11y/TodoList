@@ -600,10 +600,11 @@ function displayTODO(todoList, todo) {
 	const todoDiv = document.createElement("div");
 
 	const todoDivMain = document.createElement("div");
-	const radioBtn = document.createElement("input");
-	radioBtn.setAttribute("type", "radio");
-	radioBtn.addEventListener("change", changeStatus);
-	todoDivMain.appendChild(radioBtn);
+	const checkBtn = document.createElement("input");
+	checkBtn.setAttribute("type", "checkbox");
+	checkBtn.addEventListener("change", changeStatus);
+	checkBtn.classList.add('checkBtn');
+	todoDivMain.appendChild(checkBtn);
 	const todoTitle = document.createElement("span");
 	todoTitle.innerText = todo.title;
 	todoDivMain.appendChild(todoTitle);
@@ -659,11 +660,12 @@ function displayCompleted(doneList, completedTask) {
 	const completedDiv = document.createElement("div");
 
 	const completedDivMain = document.createElement("div");
-	const radioBtn = document.createElement("input");
-	radioBtn.setAttribute("type", "radio");
-	radioBtn.setAttribute("class", "doneTaskRadio fa-solid fa-circle-check");
-	radioBtn.addEventListener("change", changeStatus);
-	completedDivMain.appendChild(radioBtn);
+	const checkBtn = document.createElement("input");
+	checkBtn.setAttribute("type", "checkbox");
+	checkBtn.addEventListener("change", changeStatus);
+	checkBtn.checked = true;
+	checkBtn.classList.add('checkBtn');
+	completedDivMain.appendChild(checkBtn);
 	const completedTitle = document.createElement("span");
 	completedTitle.innerText = completedTask.title;
 	completedDivMain.appendChild(completedTitle);

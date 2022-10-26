@@ -21,7 +21,7 @@
 .taskPage > p {
 	font-size: 1.5em;
 	font-weight: bold;
-    color: var(--task-text);
+	color: var(--task-text);
 }
 
 .taskHeader {
@@ -88,7 +88,7 @@
 }
 
 .noWorkDiv > p {
-    color: var(--task-text);
+	color: var(--task-text);
 }
 
 .noWorkImage {
@@ -137,12 +137,12 @@
 	flex-grow: 1;
 }
 
-input[type='radio'] {
+.checkBtn {
 	transform: scale(2);
 	margin-left: 1em;
 }
 
-input[type='radio']:checked {
+.checkBtn:checked {
 	accent-color: var(--light-shade-4);
 }
 
@@ -209,7 +209,6 @@ input[type='radio']:checked {
 		display: block;
 	}
 }
-
 
 @media only screen and (max-width: 460px) {
 	.todoDivMain {
